@@ -20,11 +20,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: echo "More to come."
-      - run: pwd
-      - name: Execute gradle test
-        run: ./hello-spring-boot-docker/gradlew test 
-      - name: Execute gradle build
-        run: ./hello-spring-boot-docker/gradlew build
+
+      - run: cd hello-spring-boot-docker 
+
+      - name: Run test
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: test
+          build-root-directory: hello-spring-boot-docker
+
+      - name: Run Build
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: build
+          build-root-directory: hello-spring-boot-docker
+
       - run: ls -al
       - run: echo "More to come."
