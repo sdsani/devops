@@ -1,0 +1,22 @@
+name: CI Workflow for Java application.
+
+# https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
+on:
+  push:
+    branches:
+      - main
+      - nonexistantbranchjustforexample
+    #https://docs.github.com/en/actions/using-workflows/triggering-a-workflow
+    paths:
+      - 'hello-spring-boot-docker/**'
+
+jobs:
+  say_hello:
+    runs-on: ubuntu-latest
+    steps:
+      -run echo "Hello from CI pipeline."
+  actual_ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run echo "More to come."
