@@ -19,9 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-<<<<<<< HEAD:.gihub/workflows/ci.yaml
-      - run echo "More to come."
-      - run ls -al
-=======
       - run: echo "More to come."
->>>>>>> main:.github/workflows/ci.yml
+      - run: pwd
+      - run: ls -al
+      - run: echo "More to come."
