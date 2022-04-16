@@ -9,5 +9,4 @@ public class HelloSpringBootDockerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HelloSpringBootDockerApplication.class, args);
 	}
-
 }
