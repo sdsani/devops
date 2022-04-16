@@ -2,6 +2,7 @@ name: CI Workflow for Java application.
 
 # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
