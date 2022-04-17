@@ -63,7 +63,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Push to docker using docker command
-        run: docker push
+        run: docker push sdsani/hello-spring-boot-docker
 
       #https://github.com/marketplace/actions/git-semantic-version
       - name: Symantic tagging
