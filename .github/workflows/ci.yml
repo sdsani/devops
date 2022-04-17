@@ -47,7 +47,10 @@ jobs:
         run: docker images
 
       - name: Build docker container using gradle/springboot
-        run: gradlew bootBuildImage
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: bootBuildImage
+          build-root-directory: hello-spring-boot-docker
       - name: List docker images after build
         run: docker images
 
