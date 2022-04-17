@@ -21,3 +21,16 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+bootBuildImage {
+	imageName = "sdsani/${project.name}"
+	publish = false
+	/*docker {
+		publishRegistry {
+			username = "$repousername"
+			password = "$repopassword"
+			url = "$repourl"
+			email = "$repoemail"
+		}
+	}*/
+}

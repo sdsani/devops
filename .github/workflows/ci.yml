@@ -27,7 +27,9 @@ jobs:
         run: java -version
 
       - name: Code Checout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+            fetch-depth:0
 
       - name: Run tests using gradle
         uses: gradle/gradle-build-action@v2
@@ -59,6 +61,9 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Push to docker using docker command
+        run: docker push
 
       #https://github.com/marketplace/actions/git-semantic-version
       - name: Symantic tagging
