@@ -8,6 +8,5 @@ class HelloSpringBootDockerApplicationTests {
 
 	@Test
 	void contextLoads() {
-	}
-
+	}	
 }
