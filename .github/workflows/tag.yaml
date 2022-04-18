@@ -1,0 +1,18 @@
+name: CI Workflow to build container upon tagging
+
+# https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
+on:
+  workflow_dispatch:
+  create:
+    branches:
+      - main
+      - nonexistantbranchjustforexample
+    #https://docs.github.com/en/actions/using-workflows/triggering-a-workflow
+    #Following is not necessary since it will be controlled thru ci flow.
+    paths:
+      - 'hello-spring-boot-docker/**'
+jobs:
+  #https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#create
+  build_container:
+    runs-on: ubuntu-latest
+    steps:
