@@ -39,7 +39,8 @@ jobs:
       fail-fast: true
       matrix:
         # our matrix for testing acros OSs
-        os: [windows-2019, ubuntu-latest]
+        #os: [windows-2019, ubuntu-latest]
+        os: [ubuntu-latest]
     steps:
       - name: Set up JDK    
         uses: actions/setup-java@v1      
