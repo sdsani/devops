@@ -93,4 +93,4 @@ jobs:
     steps:
       - name: Dummy step
         run: |
-          echo "{needs.ci.outputs.new_tag}"
+          echo "${{needs.ci.outputs.new_tag}}"
