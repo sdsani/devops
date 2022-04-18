@@ -78,9 +78,10 @@ jobs:
       - name: Use latest tag
         run: |
           echo "SHA : ${{ github.sha }}"
-          echo "XXXXXX: $RUNNER_OS}}."
-          echo {{ $steps.tag_version.outputs.new_tag }}
-          echo "=====> {{ $steps.tag_version.outputs.new_tag }}"
-          echo "=====> {{ $steps.tag_version.outputs.release_type }}"
+          echo "XXXXXX: $RUNNER_OS."
+          echo "=====> {{ $steps.tag_version.outputs }}"
           echo "$steps.tag_version.outputs.new_tag"
           echo $steps.tag_version.outputs.new_tag
+          
+      - name: Dump context
+        uses: crazy-max/ghaction-dump-context@v1
