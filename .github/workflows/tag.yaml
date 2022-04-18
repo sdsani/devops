@@ -10,6 +10,7 @@ on:
     #  - 'v*'
 jobs:
   display_info:
+    runs-on: ubuntu-latest
     steps:
       - run: |
          echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}"
