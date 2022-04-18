@@ -66,6 +66,8 @@ jobs:
           arguments: build
           build-root-directory: hello-spring-boot-docker
 
+      #Be careful about following issue.
+      #https://medium.com/prompt/trigger-another-github-workflow-without-using-a-personal-access-token-f594c21373ef
       #https://github.com/marketplace/actions/github-tag
       - name: Symantic tagging/verioning
         id: tag_version
