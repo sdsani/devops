@@ -1,7 +1,5 @@
 name: Workflow to trigger build on tag.
 
-# Be careful about following
-# https://medium.com/prompt/trigger-another-github-workflow-without-using-a-personal-access-token-f594c21373ef
 # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
 on:
   create:
