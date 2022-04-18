@@ -12,10 +12,26 @@ on:
       - 'hello-spring-boot-docker/**'
 
 jobs:
-  say_hello:
+  # The first job lints the code base
+  lint:
+    name: Linter
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Hello from CI pipeline."
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Linter
+        uses: github/super-linter@v4
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_HTML: true
+          VALIDATE_JAVASCRIPT_ES: true
+          VALIDATE_JAVASCRIPT_STANDARD: true
+
   actual_ci:
     runs-on: ubuntu-latest
     steps:
