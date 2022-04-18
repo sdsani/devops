@@ -2,7 +2,6 @@ name: CI Workflow to build container upon tagging
 
 # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
@@ -11,7 +10,7 @@ on:
     #Following is not necessary since it will be controlled thru ci flow.
     paths:
       - 'hello-spring-boot-docker/**'
-    #Run this workflow if a tag starting with v pushed to the main branch.
+    #Run this workflow if tag starting with v.
     tags:
       - 'v*'
 jobs:
