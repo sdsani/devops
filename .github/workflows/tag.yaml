@@ -1,4 +1,4 @@
-name: CI Workflow to build container upon tagging
+name: Workflow to trigger build on tag.
 
 # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
 on:
