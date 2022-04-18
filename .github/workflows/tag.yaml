@@ -2,15 +2,11 @@ name: Workflow to trigger build on tag.
 
 # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
 on:
-  push:
-    branches:
-      - main
-    #Run this workflow if tag starting with v.
-    tags:
-      - 'v*'
+  create:
 jobs:
   display_info:
     runs-on: ubuntu-latest
+    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
     steps:
       - name: Code Checout
         uses: actions/checkout@v3
