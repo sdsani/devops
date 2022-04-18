@@ -77,7 +77,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Use latest tag
         run: |
-          echo "XXXXXX: $env:RUNNER_OS."
+          echo 'XXXXXX: $env:RUNNER_OS.'
           echo {{ $steps.tag_version.outputs.new_tag }}
           echo "=====> {{ $steps.tag_version.outputs.new_tag }}"
           echo "=====> {{ $steps.tag_version.outputs.release_type }}"
