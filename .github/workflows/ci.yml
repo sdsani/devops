@@ -12,12 +12,34 @@ on:
       - 'hello-spring-boot-docker/**'
 
 jobs:
-  say_hello:
+  # The first job lints the code base
+  lint:
+    name: Linter
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Hello from CI pipeline."
-  actual_ci:
-    runs-on: ubuntu-latest
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Linter
+        uses: github/super-linter@v4
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_HTML: true
+          VALIDATE_JAVASCRIPT_ES: true
+          VALIDATE_JAVASCRIPT_STANDARD: true
+
+  ci:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      # Cancel all matrix jobs if one of them fails
+      fail-fast: true
+      matrix:
+        # our matrix for testing acros OSs
+        os: [windows-2019, ubuntu-latest]
     steps:
       - name: Set up JDK    
         uses: actions/setup-java@v1      
@@ -42,28 +64,6 @@ jobs:
         with:
           arguments: build
           build-root-directory: hello-spring-boot-docker
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      #- name: List docker images before build
-      #  run: docker images
-
-      - name: Build docker container using gradle/springboot
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: bootBuildImage
-          build-root-directory: hello-spring-boot-docker
-      #- name: List docker images after build
-      #  run: docker images
-
-      - name: Login to DockerHub
-        uses: docker/login-action@v1 
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Push to docker using docker command
-        run: docker push sdsani/hello-spring-boot-docker
 
       #https://github.com/marketplace/actions/git-semantic-version
       - name: Symantic tagging/verioning
