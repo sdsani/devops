@@ -77,9 +77,9 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Use latest tag
         run: |
-          LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
-          echo $LATEST_TAG
-          echo "LATEST_TAG=${LATEST_TAG}" >> $GITHUB_ENV
+          git describe --tags `git rev-list --tags --max-count=2`
+          
+          echo "GITHUB_SHA_SHORT=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_ENV
           echo {{$env.LATEST_TAG}}
       - name: Display latest tag again
         run: |
