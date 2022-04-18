@@ -68,7 +68,7 @@ jobs:
 
       #https://github.com/marketplace/actions/git-semantic-version
       - name: Symantic tagging/verioning
-        uses: anothrNick/github-tag-action@1.36.0
+        uses: anothrNick/github-tag-action@4.0.3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
