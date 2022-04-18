@@ -41,6 +41,8 @@ jobs:
         # our matrix for testing acros OSs
         #os: [windows-2019, ubuntu-latest]
         os: [ubuntu-latest]
+    outputs:
+      new_tag: ${{ steps.tag_version.outputs.new_tag }}
     steps:
       - name: Set up JDK    
         uses: actions/setup-java@v1      
@@ -85,3 +87,10 @@ jobs:
           
       - name: Dump context
         uses: crazy-max/ghaction-dump-context@v1
+  cd:
+    runs-on: ${{ matrix.os }}
+    needs: ci
+    steps:
+      - name: Dummy step
+        run: |
+          echo "{needs.ci.outputs.new_tag}"
