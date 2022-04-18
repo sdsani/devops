@@ -74,4 +74,4 @@ jobs:
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.0
         with:
-          ssh-key: "${{ secrets.COMMIT_KEY }}"
+          github_token: ${{ secrets.COMMIT_KEY }}
