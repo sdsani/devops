@@ -5,11 +5,6 @@ on:
   push:
     branches:
       - main
-      - nonexistantbranchjustforexample
-    #https://docs.github.com/en/actions/using-workflows/triggering-a-workflow
-    #Following is not necessary since it will be controlled thru ci flow.
-    paths:
-      - 'hello-spring-boot-docker/**'
     #Run this workflow if tag starting with v.
     tags:
       - 'v*'
