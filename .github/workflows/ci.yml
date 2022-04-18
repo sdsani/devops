@@ -78,6 +78,8 @@ jobs:
       - name: Use latest tag
         run: |
           echo {{$steps.tag_version.outputs.new_tag}}
+          echo {$steps.tag_version.outputs.new_tag}
+          echo $steps.tag_version.outputs.new_tag
       - name: Display latest tag again
         run: |
           echo {{$env.LATEST_TAG}}
