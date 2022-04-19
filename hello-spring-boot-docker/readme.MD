@@ -1,7 +1,7 @@
 ## Read Me First
 Java project to demonstrate a sample containerized sprint boot application.
 
-###Check following page to understand commit messages  
+### Check following page to understand commit messages  
 https://github.com/marketplace/actions/github-tag  
 Few Examples:
   fix : Fix and will increment the patch (default)  
