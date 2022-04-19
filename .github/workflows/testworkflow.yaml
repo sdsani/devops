@@ -12,25 +12,28 @@ on:
       
 jobs:
   onlyrunonpush:
-  runs-on: ubuntu-latest
-  steps:
-    - name: List for push
-      run: |
-        ls .github/workflows -al
-        echo "This job should run only only on Push request. Current event is : ${{GITHUB_EVENT_NAME}} "
+    name: Test execution only on for push request.
+    runs-on: ubuntu-latest
+    steps:
+      - name: List for push
+        run: |
+          ls .github/workflows -al
+          echo "This job should run only only on Push request. Current event is : ${{GITHUB_EVENT_NAME}} "
         
   onlyrunonpull:
-  runs-on: ubuntu-latest
-  steps:
-    - name: List for pull
-      run: |
-        ls .github/workflows -al
-        echo "This job should run only only on Pull request. Current event is : ${{GITHUB_EVENT_NAME}} "
+    name: Test execution only on for pull request.
+    runs-on: ubuntu-latest
+    steps:
+      - name: List for pull
+        run: |
+          ls .github/workflows -al
+          echo "This job should run only only on Pull request. Current event is : ${{GITHUB_EVENT_NAME}} "
         
   runonbothpushandpull:
-  runs-on: ubuntu-latest
-  steps:
-    - name: List
-      run: |
-        ls .github/workflows -al
-        echo "This job should run for both push and pull. Current event is : ${{GITHUB_EVENT_NAME}} "
+    name: Test execution on both pull and push requests.
+    runs-on: ubuntu-latest
+    steps:
+      - name: List
+        run: |
+          ls .github/workflows -al
+          echo "This job should run for both push and pull. Current event is : ${{GITHUB_EVENT_NAME}} "
