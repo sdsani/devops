@@ -65,13 +65,13 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           arguments: test
-          build-root-directory: ${{ROOT_FOLDER}}
+          build-root-directory: ${{env.ROOT_FOLDER}}
 
       - name: Build using Gradle
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build
-          build-root-directory: ${{ROOT_FOLDER}}
+          build-root-directory: ${{env.ROOT_FOLDER}}
 
       #Be careful about following issue.
       #https://medium.com/prompt/trigger-another-github-workflow-without-using-a-personal-access-token-f594c21373ef
@@ -123,10 +123,10 @@ jobs:
           echo $GITHUB_REPOSITORY
           echo $RUNNER_OS
           echo ${{ github.event.repository.name }}
-          docker tag ${{REPO_PATH}}${{ROOT_FOLDER}}:latest ${{REPO_PATH}}${{ROOT_FOLDER}}:"${{needs.ci.outputs.new_tag}}" 
+          docker tag ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}:latest ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}:"${{needs.ci.outputs.new_tag}}" 
           docker images
-          docker push ${{REPO_PATH}}${{ROOT_FOLDER}}:latest
-          docker push ${{REPO_PATH}}${{ROOT_FOLDER}}:"${{needs.ci.outputs.new_tag}}"
+          docker push ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}:latest
+          docker push ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}:"${{needs.ci.outputs.new_tag}}"
   Deploy:
     runs-on: ubuntu-latest
     strategy:
@@ -147,7 +147,7 @@ jobs:
         run: |
           echo "----------- List of images before pull -----------"
           docker images 
-          docker pull ${{REPO_PATH}}${{ROOT_FOLDER}}
+          docker pull ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}
           echo "----------- List of images after pull -----------"
           docker images
           echo "WIP: Deploy steps not implemented yet."
