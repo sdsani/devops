@@ -118,6 +118,7 @@ jobs:
           #https://docs.github.com/en/actions/learn-github-actions/environment-variables
           echo $GITHUB_REPOSITORY
           echo $RUNNER_OS
+          echo ${{ github.event.repository.name }}
           docker tag sdsani/hello-spring-boot-docker:latest sdsani/hello-spring-boot-docker:"${{needs.ci.outputs.new_tag}}" 
           docker images
           docker push sdsani/hello-spring-boot-docker:latest
