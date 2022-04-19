@@ -115,8 +115,12 @@ jobs:
           
       - name: Tag and push docker images
         run: |
+          echo $GITHUB_REPOSITORY
+          echo $needs.ci.outputs.new_tag
+          echo ${{needs.ci.outputs.new_tag}}
           docker images
           #docker tag sdsani/hello-spring-boot-docker hello-spring-boot-docker/latest 
-          #docker tag sdsani/hello-spring-boot-docker:"${{needs.ci.outputs.new_tag}}" hello-spring-boot-docker 
+          docker tag sdsani/hello-spring-boot-docker:latest hello-spring-boot-docker:"${{needs.ci.outputs.new_tag}}" 
+          docker images
           #docker push sdsani/hello-spring-boot-docker:latest
           #docker push sdsani/hello-spring-boot-docker:"${{needs.ci.outputs.new_tag}}"
