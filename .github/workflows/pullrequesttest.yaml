@@ -16,9 +16,22 @@ env:
   
 jobs:
   # The first job lints the code base
-  list-contents:
+  test-job:
     name: List contents
     runs-on: ubuntu-latest
     steps:
-      run: |
-       ls hello-spring-boot-docker -al 
+      - name: Pre list
+        run: |
+          ls -al
+          
+      - name: Code Checout
+        uses: actions/checkout@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+          
+      - name: List folder
+        run: |
+          ls -al
+          echo "============================================================================================="
+          ls hello-spring-boot-docker -al 
