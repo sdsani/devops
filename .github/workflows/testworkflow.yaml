@@ -14,7 +14,7 @@ jobs:
   onlyrunonpush:
     name: Test execution only on for push request.
     runs-on: ubuntu-latest
-    if: $GITHUB_EVENT_NAME == 'push'
+    if: github.event_name == 'push'
     steps:
       - name: List for push
         run: |
@@ -24,7 +24,7 @@ jobs:
   onlyrunonpull:
     name: Test execution only on for pull request.
     runs-on: ubuntu-latest
-    if: $GITHUB_EVENT_NAME == 'pull_request'
+    if: github.event_name == 'pull_request'
     steps:
       - name: List for pull
         run: |
@@ -34,7 +34,7 @@ jobs:
   runonbothpushandpull:
     name: Test execution on both pull and push requests.
     runs-on: ubuntu-latest
-    if: $GITHUB_EVENT_NAME == 'pull_request' || $GITHUB_EVENT_NAME == 'push'
+    if: github.event_name == 'pull_request' || github.event_name == 'push'
     steps:
       - name: List
         run: |
