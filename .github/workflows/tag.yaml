@@ -11,6 +11,7 @@ jobs:
       - name: Code Checout
         uses: actions/checkout@v3
         with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
             fetch-depth: 0
       - name: Set env
         run: |
