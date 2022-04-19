@@ -1,0 +1,36 @@
+name: Test workflow
+
+# https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
+on:
+  workflow_dispatch:
+  pull_request: 
+    branches: [ main ]
+  
+  push:
+    branches:
+      - main
+      
+jobs:
+  onlyrunonpush:
+  runs-on: ubuntu-latest
+  steps:
+    - name: List for push
+      run: |
+        ls .github/workflows -al
+        echo "This job should run only only on Push request. Current event is : ${{GITHUB_EVENT_NAME}} "
+        
+  onlyrunonpull:
+  runs-on: ubuntu-latest
+  steps:
+    - name: List for pull
+      run: |
+        ls .github/workflows -al
+        echo "This job should run only only on Pull request. Current event is : ${{GITHUB_EVENT_NAME}} "
+        
+  runonbothpushandpull:
+  runs-on: ubuntu-latest
+  steps:
+    - name: List
+      run: |
+        ls .github/workflows -al
+        echo "This job should run for both push and pull. Current event is : ${{GITHUB_EVENT_NAME}} "
