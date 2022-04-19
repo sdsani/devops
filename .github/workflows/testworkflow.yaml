@@ -11,16 +11,6 @@ on:
       - main
       
 jobs:
-  onlyrunonpush:
-    name: Test execution only on for push request.
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-    steps:
-      - name: List for push
-        run: |
-          ls -al
-          echo "This job should run only only on Push request. Current event is : $GITHUB_EVENT_NAME"
-        
   onlyrunonpull:
     name: Test execution only on for pull request.
     runs-on: ubuntu-latest
