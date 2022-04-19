@@ -1,0 +1,24 @@
+name: CI Workflow for Java application.
+
+# https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
+on:
+  workflow_dispatch:
+  pull:
+    branches:
+      - main
+    #https://docs.github.com/en/actions/using-workflows/triggering-a-workflow
+    paths:
+      - 'hello-spring-boot-docker/**'
+
+env:
+  REPO_PATH: 'sdsani/'
+  ROOT_FOLDER: 'hello-spring-boot-docker'  
+  
+jobs:
+  # The first job lints the code base
+  list-contents:
+    name: List contents
+    runs-on: ubuntu-latest
+    steps:
+      run: |
+       ls hello-spring-boot-docker -al 
