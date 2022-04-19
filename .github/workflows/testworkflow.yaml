@@ -40,3 +40,7 @@ jobs:
         run: |
           ls -al
           echo "This job should run for both push and pull. Current event is : $GITHUB_EVENT_NAME "
+      - name: Condition at step
+        if: github.event_name == 'push'
+        run: |
+          echo "<<<<<<<< Step execution >>>>>>>>"
