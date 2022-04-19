@@ -115,9 +115,9 @@ jobs:
           
       - name: Tag and push docker images
         run: |
+          #https://docs.github.com/en/actions/learn-github-actions/environment-variables
           echo $GITHUB_REPOSITORY
-          echo $needs.ci.outputs.new_tag
-          echo ${{needs.ci.outputs.new_tag}}
+          echo $RUNNER_OS
           docker images
           docker tag sdsani/hello-spring-boot-docker:latest sdsani/hello-spring-boot-docker:"${{needs.ci.outputs.new_tag}}" 
           docker images
