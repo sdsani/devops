@@ -34,3 +34,20 @@ jobs:
         if: github.event_name == 'push'
         run: |
           echo "<<<<<<<< Step execution >>>>>>>>"
+          
+  param_passing:   
+    name: Example to demo parameter passing between steps
+    runs-on: ubuntu-latest
+    steps:
+      - name: First step to generate params
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          dry_run: true
+          
+      - name: Now read the values
+        run: |
+          echo "${{steps.tag_version.outputs.new_tag}}"
+          echo "${{steps.tag_version.outputs.previous_tag}}"
+        
