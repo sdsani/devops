@@ -11,6 +11,9 @@ on:
     paths:
       - 'hello-spring-boot-docker/**'
 
+env:
+  REPOSITORY_NAME: 'sdsani/hello-spring-boot-docker'
+      
 jobs:
   # The first job lints the code base
   lint:
@@ -54,7 +57,7 @@ jobs:
       - name: Code Checout
         uses: actions/checkout@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: env
           fetch-depth: 0
 
       - name: Run tests using gradle
@@ -143,7 +146,7 @@ jobs:
         run: |
           echo "----------- List of images before pull -----------"
           docker images 
-          docker pull sdsani/hello-spring-boot-docker
+          docker pull ${{env.REPOSITORY_NAME}}
           echo "----------- List of images after pull -----------"
           docker images
           echo "WIP: Deploy steps not implemented yet."
