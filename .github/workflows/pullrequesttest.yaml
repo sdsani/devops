@@ -3,7 +3,7 @@ name: CI Workflow for Java application.
 # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
 on:
   workflow_dispatch:
-  pull:
+  pull_request:
     branches:
       - main
     #https://docs.github.com/en/actions/using-workflows/triggering-a-workflow
