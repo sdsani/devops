@@ -18,7 +18,7 @@ jobs:
       - name: List for push
         run: |
           ls .github/workflows -al
-          echo "This job should run only only on Push request. Current event is : ${{GITHUB_EVENT_NAME}} "
+          echo "This job should run only only on Push request. Current event is : $GITHUB_EVENT_NAME"
         
   onlyrunonpull:
     name: Test execution only on for pull request.
@@ -27,7 +27,7 @@ jobs:
       - name: List for pull
         run: |
           ls .github/workflows -al
-          echo "This job should run only only on Pull request. Current event is : ${{GITHUB_EVENT_NAME}} "
+          echo "This job should run only only on Pull request. Current event is : $GITHUB_EVENT_NAME "
         
   runonbothpushandpull:
     name: Test execution on both pull and push requests.
@@ -36,4 +36,4 @@ jobs:
       - name: List
         run: |
           ls .github/workflows -al
-          echo "This job should run for both push and pull. Current event is : ${{GITHUB_EVENT_NAME}} "
+          echo "This job should run for both push and pull. Current event is : $GITHUB_EVENT_NAME "
