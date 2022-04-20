@@ -34,9 +34,10 @@ jobs:
         if: github.event_name == 'push'
         run: |
           echo "<<<<<<<< Step execution >>>>>>>>"
-          
-  param_passing:   
-    name: Example to demo parameter passing between steps
+  
+  #https://pakstech.com/blog/github-actions-workflow-commands/
+  param_passing1:   
+    name: Parameter Passing when source is a action and target is run
     runs-on: ubuntu-latest
     steps:
       - name: First step to generate params
@@ -50,4 +51,57 @@ jobs:
         run: |
           echo "${{steps.tag_version.outputs.new_tag}}"
           echo "${{steps.tag_version.outputs.previous_tag}}"
+  
+  # Link with #1 explains following also
+  param_passing2:   
+    name: Parameter Passing when both source and target steps are run
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          
+      - name: First step to generate params
+        id: sourse_step
+        run: echo "::set-output name=author::$(git show -s --format=%an)"
+          
+      - name: Echo params
+        run: |
+          echo "${{steps.sourse_step.outputs.auther}}"
+          
+  # Link with #1 explains following also
+  param_passing3:   
+    name: Parameter Passing when both source and target are run using env
+    runs-on: ubuntu-latest
+    steps:
+      - name: First step to generate params
+        id: sourse_step
+        run: echo "::set-output name=ghtoken::'dummy_token_value'"
+          
+      - name: Echo params
+        run: |
+          echo $auth_name
+        env:
+          auth_name: ${{steps.sourse_step.outputs.ghtoken}}
+          
+  # Link with #1 explains following also
+  param_passing4:   
+    name: Parameter Passing when source is a run and target is an action
+    runs-on: ubuntu-latest
+    steps:
+      - name: First step to generate params
+        id: sourse_step
+        run: echo "::set-output name=dry_run::'true'"
+          
+      - name: Tagging dry run
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          dry_run: ${{steps.sourse_step.outputs.dry_run}}
         
+      - name: Now read the values
+        run: |
+          echo "${{steps.tag_version.outputs.new_tag}}"
+          echo "${{steps.tag_version.outputs.previous_tag}}"
