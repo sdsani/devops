@@ -154,7 +154,6 @@ jobs:
       # Cancel all matrix jobs if one of them fails
       fail-fast: true
     needs: cd
-    if: github.event_name == 'push'
     
     steps:
       - name: Set up Docker environment
@@ -168,10 +167,8 @@ jobs:
           
       - name: Deploy
         run: |
-          echo "----------- List of images before pull -----------"
-          docker images 
+          echo ${{env.GITHUB_EVENT_NAME}}
           docker pull ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}
-          echo "----------- List of images after pull -----------"
           docker images
           echo "WIP: Deploy steps not implemented yet."
           echo "New tag created in CD passed to Deploy : "${{needs.cd.outputs.new_tag}}
