@@ -143,7 +143,7 @@ jobs:
           docker push ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}:latest
           docker push ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}:$new_tag
         env:
-          new_tag: ${{steps.sourse_step.tag_version.new_tag}}
+          new_tag: ${{steps.tag_version.outputs.new_tag}}
           
           
   Deploy:
