@@ -96,7 +96,6 @@ jobs:
     strategy:
       # Cancel all matrix jobs if one of them fails
       fail-fast: true
-    needs: ci
     if: github.event_name == 'push'
     outputs:
       new_tag: ${{ steps.tag_version.outputs.new_tag }}
@@ -154,7 +153,7 @@ jobs:
       # Cancel all matrix jobs if one of them fails
       fail-fast: true
     needs: cd
-    
+    if: github.event_name == 'push'
     steps:
       - name: Set up Docker environment
         uses: docker/setup-buildx-action@v1
