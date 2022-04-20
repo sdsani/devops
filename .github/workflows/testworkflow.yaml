@@ -64,7 +64,9 @@ jobs:
           
       - name: First step to generate params
         id: sourse_step
-        run: echo "::set-output name=author::$(git show -s --format=%an)"
+        run: |
+          git show -s --format=%an
+          echo "::set-output name=author::$(git show -s --format=%an)"
           
       - name: Echo params
         run: |
