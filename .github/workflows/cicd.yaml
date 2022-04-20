@@ -5,10 +5,12 @@ on:
   workflow_dispatch:
   pull_request: 
     branches: [ main ]
+    paths:
+      - 'hello-spring-boot-docker/**'
+      
   push:
     branches:
       - main
-
     #https://docs.github.com/en/actions/using-workflows/triggering-a-workflow
     paths:
       - 'hello-spring-boot-docker/**'
@@ -83,12 +85,12 @@ jobs:
       #Be careful about following issue.
       #https://medium.com/prompt/trigger-another-github-workflow-without-using-a-personal-access-token-f594c21373ef
       #https://github.com/marketplace/actions/github-tag
-      - name: Symantic tagging/verioning
-        if: github.event_name == 'push'
-        id: tag_version
-        uses: mathieudutour/github-tag-action@v6.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      #- name: Symantic tagging/verioning
+      #  if: github.event_name == 'push'
+      #  id: tag_version
+      #  uses: mathieudutour/github-tag-action@v6.0
+      #  with:
+      #    github_token: ${{ secrets.GITHUB_TOKEN }}
   cd:
     name: CD
     runs-on: ubuntu-latest
@@ -111,6 +113,13 @@ jobs:
             
       - name: Set up Docker environment
         uses: docker/setup-buildx-action@v1
+        
+      - name: Symantic tagging/verioning
+        if: github.event_name == 'push'
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
   
       - name: Build docker image
         uses: gradle/gradle-build-action@v2
@@ -126,14 +135,17 @@ jobs:
           
       - name: Tag and push docker images
         run: |
-          #https://docs.github.com/en/actions/learn-github-actions/environment-variables
+          #https://pakstech.com/blog/github-actions-workflow-commands/
           echo $GITHUB_REPOSITORY
-          echo $RUNNER_OS
+          echo $new_tag
           echo ${{ github.event.repository.name }}
-          docker tag ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}:latest ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}:"${{needs.ci.outputs.new_tag}}" 
+          docker tag ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}:latest ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}:$new_tag 
           docker images
           docker push ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}:latest
-          docker push ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}:"${{needs.ci.outputs.new_tag}}"
+          docker push ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}:$new_tag
+        env:
+          new_tag: ${{steps.sourse_step.tag_version.new_tag}}
+          
           
   Deploy:
     name: Deploy
