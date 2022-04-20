@@ -44,6 +44,7 @@ jobs:
   ci:
     name: CI
     runs-on: ${{ matrix.os }}
+    if: github.event_name == 'pull_request'
     strategy:
       # Cancel all matrix jobs if one of them fails
       fail-fast: true
@@ -51,8 +52,6 @@ jobs:
         # our matrix for testing acros OSs
         #os: [windows-2019, ubuntu-latest]
         os: [ubuntu-latest]
-    outputs:
-      new_tag: ${{ steps.tag_version.outputs.new_tag }}
 
     steps:
       - name: Set up JDK    
@@ -99,7 +98,9 @@ jobs:
       fail-fast: true
     needs: ci
     if: github.event_name == 'push'
-
+    outputs:
+      new_tag: ${{ steps.tag_version.outputs.new_tag }}
+      
     steps:          
       - name: Set up JDK    
         uses: actions/setup-java@v1      
@@ -115,7 +116,6 @@ jobs:
         uses: docker/setup-buildx-action@v1
         
       - name: Symantic tagging/verioning
-        if: github.event_name == 'push'
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.0
         with:
@@ -174,3 +174,4 @@ jobs:
           echo "----------- List of images after pull -----------"
           docker images
           echo "WIP: Deploy steps not implemented yet."
+          echo "New tag created in CD passed to Deploy : "${{needs.cd.outputs.new_tag}}
