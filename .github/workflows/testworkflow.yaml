@@ -1,4 +1,4 @@
-name: CI Workflow for Java application.
+name: Test workflow.
 
 # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
 on:
