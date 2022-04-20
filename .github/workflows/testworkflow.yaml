@@ -70,7 +70,7 @@ jobs:
           
       - name: Echo params
         run: |
-          echo "${{steps.sourse_step.outputs.auther}}"
+          echo "${{steps.sourse_step.outputs.author}}"
           
   # Link with #1 explains following also
   param_passing3:   
