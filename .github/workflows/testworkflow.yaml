@@ -34,9 +34,10 @@ jobs:
         if: github.event_name == 'push'
         run: |
           echo "<<<<<<<< Step execution >>>>>>>>"
-          
-  param_passing:   
-    name: Example to demo parameter passing between steps
+  
+  #https://pakstech.com/blog/github-actions-workflow-commands/
+  param_passing1:   
+    name: Parameter Passing when source is a action and target is run
     runs-on: ubuntu-latest
     steps:
       - name: First step to generate params
@@ -50,4 +51,53 @@ jobs:
         run: |
           echo "${{steps.tag_version.outputs.new_tag}}"
           echo "${{steps.tag_version.outputs.previous_tag}}"
+  
+  # Link with #1 explains following also
+  param_passing2:   
+    name: Parameter Passing when both source and target steps are run
+    runs-on: ubuntu-latest
+    steps:
+      - name: First step to generate params
+        id: sourse_step
+        run: echo "::set-output name=author::$(git show -s --format=%an)"
+          
+      - name: Echo params
+        run: |
+          echo "${{steps.sourse_step.outputs.auther}}"
+          
+  # Link with #1 explains following also
+  param_passing3:   
+    name: Parameter Passing when both source and target are run using env
+    runs-on: ubuntu-latest
+    steps:
+      - name: First step to generate params
+        id: sourse_step
+        run: echo "::set-output name=ghtoken::${{ secrets.GITHUB_TOKEN }}"
+          
+      - name: Echo params
+        run: |
+          echo $auth_name
+        env:
+          auth_name: ${{steps.sourse_step.outputs.ghtoken}}
+          
+  # Link with #1 explains following also
+  param_passing4:   
+    name: Parameter Passing when source is a run and target is an action
+    runs-on: ubuntu-latest
+    steps:
+      - name: First step to generate params
+        id: sourse_step
+        run: echo "::set-output name=ghtoken::${{ secrets.GITHUB_TOKEN }}"
+          
+      - name: Tagging dry run
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.0
+        with:
+          github_token: $ght
+        env:
+          ght: ${{steps.sourse_step.outputs.ghtoken}}
         
+      - name: Now read the values
+        run: |
+          echo "${{steps.tag_version.outputs.new_tag}}"
+          echo "${{steps.tag_version.outputs.previous_tag}}"
