@@ -57,6 +57,11 @@ jobs:
     name: Parameter Passing when both source and target steps are run
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          
       - name: First step to generate params
         id: sourse_step
         run: echo "::set-output name=author::$(git show -s --format=%an)"
@@ -72,7 +77,7 @@ jobs:
     steps:
       - name: First step to generate params
         id: sourse_step
-        run: echo "::set-output name=ghtoken::${{ secrets.GITHUB_TOKEN }}"
+        run: echo "::set-output name=ghtoken::'dummy_token_value'"
           
       - name: Echo params
         run: |
