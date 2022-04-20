@@ -44,6 +44,7 @@ jobs:
   ci:
     name: CI
     runs-on: ${{ matrix.os }}
+    if: github.event_name == 'pull_request'
     strategy:
       # Cancel all matrix jobs if one of them fails
       fail-fast: true
@@ -115,7 +116,6 @@ jobs:
         uses: docker/setup-buildx-action@v1
         
       - name: Symantic tagging/verioning
-        if: github.event_name == 'push'
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.0
         with:
