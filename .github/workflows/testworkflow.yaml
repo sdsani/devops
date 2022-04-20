@@ -87,15 +87,14 @@ jobs:
     steps:
       - name: First step to generate params
         id: sourse_step
-        run: echo "::set-output name=ghtoken::${{ secrets.GITHUB_TOKEN }}"
+        run: echo "::set-output name=dry_run::'true'"
           
       - name: Tagging dry run
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.0
         with:
-          github_token: $ght
-        env:
-          ght: ${{steps.sourse_step.outputs.ghtoken}}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          dry_run: ${{steps.sourse_step.outputs.dry_run}}
         
       - name: Now read the values
         run: |
