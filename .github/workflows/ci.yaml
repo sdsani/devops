@@ -1,0 +1,70 @@
+name: CI Workflow
+
+# https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
+on:
+  workflow_dispatch:
+  pull_request: 
+    branches: [ main ]
+    paths:
+      - 'hello-spring-boot-docker/**'
+      
+env:
+  REPO_PATH: 'sdsani/'
+  ROOT_FOLDER: 'hello-spring-boot-docker'  
+  
+jobs:
+  # The first job lints the code base
+  lint:
+    name: Linter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Linter
+        uses: github/super-linter@v4
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_HTML: true
+          VALIDATE_JAVASCRIPT_ES: true
+          VALIDATE_JAVASCRIPT_STANDARD: true
+
+  ci:
+    name: CI
+    runs-on: ${{ matrix.os }}
+    strategy:
+      # Cancel all matrix jobs if one of them fails
+      fail-fast: true
+      matrix:
+        # our matrix for testing acros OSs
+        #os: [windows-2019, ubuntu-latest]
+        os: [ubuntu-latest]
+
+    steps:
+      - name: Set up JDK    
+        uses: actions/setup-java@v1      
+        with:        
+          java-version: "11"
+          
+      - name: Code Checkout
+        uses: actions/checkout@v3
+        with:
+          github_token: env
+          fetch-depth: 0
+
+      - name: Run tests using gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: test
+          build-root-directory: ${{env.ROOT_FOLDER}}
+
+      - name: Build using Gradle
+        if: github.event_name == 'pull_request'
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: build
+          build-root-directory: ${{env.ROOT_FOLDER}}
