@@ -1,0 +1,19 @@
+name: CD Workflow
+
+# https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
+on:
+  release:
+    types: [published]
+
+env:
+  REPO_PATH: 'sdsani/'
+  ROOT_FOLDER: 'hello-spring-boot-docker'
+  
+jobs:
+  rl:
+    name: Dummy release job
+    runs-on: ubuntu-latest
+    steps:
+      run: |
+        echo "Dummy step on release publish"
+    
