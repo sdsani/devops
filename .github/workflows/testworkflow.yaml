@@ -9,7 +9,10 @@ on:
   push:
     branches:
       - main
-      
+  
+  schedule:
+    - cron: '*/30 * * * *'
+  
 jobs:
   onlyrunonpull:
     name: Test execution only on for pull request.
