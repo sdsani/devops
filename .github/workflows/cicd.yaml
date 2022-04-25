@@ -147,6 +147,9 @@ jobs:
     needs: [CD]
     if: github.event_name == 'push' && github.event.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    environment: 
+      name: Development
+      url: 'http://www.devenvurl.com'    
     strategy:
       # Cancel all matrix jobs if one of them fails
       fail-fast: true
@@ -170,6 +173,9 @@ jobs:
     needs: [CD]
     if: github.event_name == 'push' && github.event.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    environment: 
+      name: Stage
+      url: 'http://www.stageenvurl.com'    
     strategy:
       # Cancel all matrix jobs if one of them fails
       fail-fast: true
@@ -193,6 +199,9 @@ jobs:
     needs: [DeployStage]
     if: github.event_name == 'push' && github.event.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    environment: 
+      name: Production
+      url: 'http://www.prodenvurl.com'    
     strategy:
       # Cancel all matrix jobs if one of them fails
       fail-fast: true
