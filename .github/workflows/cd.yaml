@@ -2,12 +2,14 @@ name: CD Workflow
 
 # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
 on:
-  push:
-    branches:
-      - main
+  #Only keeping it for history. Combined both CI and CD into one workflow.
+  #push:
+  #  branches:
+  #    - main
     #https://docs.github.com/en/actions/using-workflows/triggering-a-workflow
-    paths:
-      - 'hello-spring-boot-docker/**'
+  workflow_dispatch:  
+  #paths:
+  #    - 'hello-spring-boot-docker/**'
 
 env:
   REPO_PATH: 'sdsani/'
