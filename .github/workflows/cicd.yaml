@@ -113,6 +113,13 @@ jobs:
         # Learn more about CodeQL language support at https://git.io/codeql-language-support
     
     steps:
+    
+    - name: Code Checkout
+      uses: actions/checkout@v3
+      with:
+        github_token: env
+        fetch-depth: 1
+        
       # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
@@ -122,12 +129,12 @@ jobs:
         # By default, queries listed here will override any specified in a config file.
         # Prefix the list here with "+" to use these queries and those in the config file.
         # queries: ./path/to/local/query, your-org/your-repo/queries@main
-    
-    - name: Code Checkout
-      uses: actions/checkout@v3
+    - name: Build using Gradle
+      uses: gradle/gradle-build-action@v2
       with:
-        github_token: env
-        fetch-depth: 1
+        arguments: build
+        build-root-directory: ${{env.ROOT_FOLDER}}    
+    
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
   
