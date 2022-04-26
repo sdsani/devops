@@ -19,7 +19,7 @@ jobs:
 
   DeployDev:
     name: Deploy In Development environment
-    if: ${{inbputs.event_name}} == 'push' && ${{inbputs.event_ref}} == 'refs/heads/main'
+    if: ${{inputs.event_name}} == 'push' && ${{inputs.event_ref}} == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: 
       name: Development
@@ -45,7 +45,7 @@ jobs:
   DeployStage:
     name: Deploy In Staging environment
     needs: [DeployDev]
-    if: ${{inbputs.event_name}} == 'push' && ${{inbputs.event_ref}} == 'refs/heads/main'
+    if: ${{inputs.event_name}} == 'push' && ${{inputs.event_ref}} == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: 
       name: Stage
@@ -71,7 +71,7 @@ jobs:
   DeployProd:
     name: Deploy In Production
     needs: [DeployStage]
-    if: ${{inbputs.event_name}} == 'push' && ${{inbputs.event_ref}} == 'refs/heads/main'
+    if: ${{inputs.event_name}} == 'push' && ${{inputs.event_ref}} == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: 
       name: Production
