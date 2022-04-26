@@ -24,7 +24,7 @@ jobs:
     name: Deploy In Development environment
     if: ${{inputs.event_name}} == 'push' && ${{inputs.event_ref}} == 'refs/heads/main'
     runs-on: ubuntu-latest
-    environment: 
+    environment:
       name: Development
       url: 'http://www.devenvurl.com'    
     strategy:
