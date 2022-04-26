@@ -31,6 +31,7 @@ jobs:
 
   call_cd:
     uses: ./.github/workflows/cd.yaml
+    if: github.event_name == 'push'
     with:
       event_name: ${{github.event_name}} 
       event_ref: ${{github.event.ref}}
@@ -40,7 +41,6 @@ jobs:
   
   test_job:
     name: Test job to verify new_tag
-    if: github.event_name == 'push'
     needs: [call_cd]
     runs-on: ubuntu-latest
     steps: 
