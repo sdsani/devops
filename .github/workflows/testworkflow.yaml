@@ -110,3 +110,11 @@ jobs:
         run: |
           echo "${{steps.tag_version.outputs.new_tag}}"
           echo "${{steps.tag_version.outputs.previous_tag}}"
+          
+  display_env:
+    name: Test to check values
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "${{github.event.repository.name}}"
+          echo "${{ github.actor }}"
