@@ -40,7 +40,7 @@ jobs:
     with:
       event_name: ${{github.event_name}} 
       event_ref: ${{github.event.ref}}
-      tag_name: ${{needs.cd.outputs.tag_created}}
+      tag_name: ${{needs.call_cd.outputs.tag_created}}
     secrets:
       registry_username: ${{secrets.REGISTRY_USERNAME}}
       registry_password: ${{secrets.REGISTRY_PASSWORD}}
