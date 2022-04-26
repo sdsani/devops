@@ -67,7 +67,7 @@ jobs:
           
   Test:
     name: Run tests
-    if: ${{inbputs.event_name}} == 'pull_request'
+    if: ${{inputs.event_name}} == 'pull_request'
     runs-on: ubuntu-latest
     needs: [CodeCompile]
     
@@ -91,7 +91,7 @@ jobs:
           
   CodeQL:
     name: Run CodeQL
-    if: ${{inbputs.event_name}} == 'pull_request'
+    if: ${{inputs.event_name}} == 'pull_request'
     runs-on: ubuntu-latest
     needs: [CodeCompile]
     permissions:
