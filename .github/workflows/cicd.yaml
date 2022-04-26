@@ -42,6 +42,8 @@ jobs:
   
   test_job:
     name: Test job to verify new_tag
+    if: github.event_name == 'push'
+    needs: [cd]
     runs-on: ubuntu-latest
     steps: 
       - run: |
