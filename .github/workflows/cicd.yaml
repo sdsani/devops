@@ -219,7 +219,7 @@ jobs:
           new_tag: ${{steps.tag_version.outputs.new_tag}}
   
   Deploy:
-    uses: ./.github/workflows/depoly.yaml
+    uses: ./.github/workflows/deploy.yaml
     name: Deploy code to environments
     with:
       event_name: ${{github.event_name}} 
