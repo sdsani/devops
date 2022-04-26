@@ -131,3 +131,12 @@ jobs:
     
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
+  WE:
+   name: Anything else that we should do before merge
+   if: github.event_name == 'pull_request'
+   runs-on: ubuntu-latest
+   needs: [CodeCompile]   
+   
+   steps:
+     - run: |
+         echo "What else should be done before merge"
