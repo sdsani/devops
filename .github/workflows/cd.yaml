@@ -8,7 +8,12 @@ on:
       event_ref:
         required: true
         type: string
-      
+    secrets:
+      registry_username:
+        required: false
+      registry_token:
+        required: false
+        
 env:
   REPO_PATH: "${{ github.actor }}/"
   ROOT_FOLDER: 'hello-spring-boot-docker' 
@@ -42,7 +47,7 @@ jobs:
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.0
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.registry_token }}
           tag_prefix: ""
           custom_release_rules: | 
             bug:patch:Bug Fixes,
@@ -68,8 +73,8 @@ jobs:
       - name: Docker login
         uses: docker/login-action@v1 
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.registry_username }}
+          password: ${{ secrets.registry_token }}
           
       - name: Tag and push docker images
         run: |
