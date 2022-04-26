@@ -42,7 +42,7 @@ jobs:
   CD:
     uses: ./.github/workflows/cd.yaml
     name: CD
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'push'
     with:
       event_name: ${{github.event_name}} 
       event_ref: ${{github.event.ref}}
