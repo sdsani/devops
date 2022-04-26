@@ -1,18 +1,15 @@
 name: CI + CD
 
 # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
-on:
-  
+on:  
   pull_request: 
     branches: [ main ]
     paths:
-      - 'hello-spring-boot-docker/**'
-  
+      - 'hello-spring-boot-docker/**'  
   push: 
     branches: [ main ]
     paths:
-      - 'hello-spring-boot-docker/**'
-      
+      - 'hello-spring-boot-docker/**'      
   workflow_dispatch:
   
 env:
@@ -20,7 +17,6 @@ env:
   ROOT_FOLDER: 'hello-spring-boot-docker'  
   
 jobs:
-
   ci:
     uses: ./.github/workflows/ci.yaml
     name: CI
@@ -28,7 +24,6 @@ jobs:
     with:
       event_name: ${{github.event_name}} 
       event_ref: ${{github.event.ref}}
-
   call_cd:
     uses: ./.github/workflows/cd.yaml
     if: github.event_name == 'push'
@@ -38,18 +33,6 @@ jobs:
     secrets:
       dh_username: ${{secrets.DOCKERHUB_USERNAME}}
       dh_token: ${{secrets.DOCKERHUB_TOKEN}}
-  
-  test_job:
-    name: Test job to verify new_tag
-    needs: [call_cd]
-    runs-on: ubuntu-latest
-    steps: 
-      - run: |
-          echo "First: "${{needs.call_cd.outputs.tag_created}}
-          echo "Second: "${{needs.cd.outputs.tag_created}}
-          echo "Third: ${{needs.call_cd.outputs.tag_created}}"
-          echo "Forth: ${{needs.cd.outputs.tag_created}}"
-
   deploy:
     uses: ./.github/workflows/deploy.yaml
     name: Deploy code to environments
