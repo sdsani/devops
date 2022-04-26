@@ -9,11 +9,15 @@ on:
       event_ref:
         required: true
         type: string
+      tag_name:
+        required: true
+        type: string
     secrets:
       registry_username:
         required: false
       registry_password:
-        required: false      
+        required: false
+      
 env:
   REPO_PATH: "${{ github.actor }}/"
   ROOT_FOLDER: 'hello-spring-boot-docker' 
@@ -43,7 +47,7 @@ jobs:
           docker pull ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}
           docker images
           echo "WIP: Deploy to development steps not implemented yet."
-          echo "New tag created in CD passed to Deploy : "${{needs.cd.outputs.new_tag}}
+          echo "New tag created in CD passed to Deploy : "${{tag_name}}
 
   DeployStage:
     name: Deploy In Staging environment
@@ -69,7 +73,7 @@ jobs:
           docker pull ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}
           docker images
           echo "WIP: Deploy to development steps not implemented yet."
-          echo "New tag created in CD passed to Deploy : "${{needs.cd.outputs.new_tag}}
+          echo "New tag created in CD passed to Deploy : "${{tag_name}}
           
   DeployProd:
     name: Deploy In Production
@@ -103,7 +107,7 @@ jobs:
           docker pull ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}
           docker images
           echo "WIP: Deploy to Production steps not implemented yet."
-          echo "New tag created in CD passed to Deploy : "${{needs.cd.outputs.new_tag}}
+          echo "New tag created in CD passed to Deploy : "${{needs.cd.outputs.tag_name}}
           
       #- name: Create release
       #  id: create_release
