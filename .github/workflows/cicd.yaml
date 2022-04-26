@@ -219,7 +219,7 @@ jobs:
           new_tag: ${{steps.tag_version.outputs.new_tag}}
   
   Deploy:
-    uses: sdsani/devops/.github/workflows/depoly.yaml@main
+    uses: ./.github/workflows/depoly.yaml
     needs: [CD]
     with:
       event_name: ${{github.event_name}} 
