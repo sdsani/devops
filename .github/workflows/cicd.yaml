@@ -220,7 +220,6 @@ jobs:
   
   Deploy:
     uses: ./.github/workflows/depoly.yaml
-    needs: [CD]
     with:
       event_name: ${{github.event_name}} 
       event_ref: ${{github.event.ref}}
