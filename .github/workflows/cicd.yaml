@@ -221,6 +221,7 @@ jobs:
   Deploy:
     uses: ./.github/workflows/deploy.yaml
     name: Deploy code to environments
+    needs: [CD]
     with:
       event_name: ${{github.event_name}} 
       event_ref: ${{github.event.ref}}
