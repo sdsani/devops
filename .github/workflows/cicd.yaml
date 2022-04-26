@@ -16,7 +16,7 @@ on:
   workflow_dispatch:
   
 env:
-  REPO_PATH: 'sdsani/'
+  REPO_PATH: "${{ github.actor }}sdsani/"
   ROOT_FOLDER: 'hello-spring-boot-docker'  
   
 jobs:
