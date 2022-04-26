@@ -220,6 +220,7 @@ jobs:
   
   Deploy:
     uses: ./.github/workflows/depoly.yaml
+    name: Deploy code to environments
     with:
       event_name: ${{github.event_name}} 
       event_ref: ${{github.event.ref}}
