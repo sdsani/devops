@@ -13,7 +13,10 @@ on:
         required: false
       dh_token:
         required: false
-        
+    outputs:
+      tag_created:
+        value: ${{jobs.cd.outputs.tag_created}}
+
 env:
   REPO_PATH: "${{ github.actor }}/"
   ROOT_FOLDER: 'hello-spring-boot-docker' 
