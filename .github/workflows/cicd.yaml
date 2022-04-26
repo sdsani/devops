@@ -40,6 +40,15 @@ jobs:
       dh_username: ${{secrets.DOCKERHUB_USERNAME}}
       dh_token: ${{secrets.DOCKERHUB_TOKEN}}
   
+  test_job:
+    name: Test job to verify new_tag
+    if: github.event_name == 'push'
+    needs: [cd]
+    runs-on: ubuntu-latest
+    steps: 
+      - run: |
+          echo ${{needs.cd.outputs.new_tag}}
+
   deploy:
     uses: ./.github/workflows/deploy.yaml
     name: Deploy code to environments
