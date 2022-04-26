@@ -47,6 +47,8 @@ jobs:
       - run: |
           echo "First: "${{needs.call_cd.outputs.new_tag}}
           echo "Second: "${{needs.cd.outputs.new_tag}}
+          echo "Third: ${{needs.call_cd.outputs.new_tag}}"
+          echo "Forth: ${{needs.cd.outputs.new_tag}}"
 
   deploy:
     uses: ./.github/workflows/deploy.yaml
