@@ -27,7 +27,7 @@ jobs:
       # Cancel all matrix jobs if one of them fails
       fail-fast: true
     outputs:
-      new_tag: ${{ steps.tag_version.outputs.new_tag }}
+      tag_created: ${{ steps.tag_version.outputs.new_tag }}
       
     steps:          
       - name: Set up JDK    
