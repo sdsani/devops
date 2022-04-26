@@ -116,6 +116,7 @@ jobs:
     with:
       event_name: ${{github.event_name}} 
       event_ref: ${{github.event.ref}}
+      tag_name: ${{needs.cd.outputs.new_tag}}
     secrets:
       registry_username: ${{secrets.REGISTRY_USERNAME}}
       registry_password: ${{secrets.REGISTRY_PASSWORD}}
