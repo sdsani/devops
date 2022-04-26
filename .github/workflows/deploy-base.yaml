@@ -1,0 +1,30 @@
+name: Deploy Base
+on: 
+  workflow_call:
+    inputs:
+      event_name:
+        required: true
+        type: string
+      event_ref:
+        required: true
+        type: string
+
+env:
+  REPO_PATH: "${{ github.actor }}/"
+  ROOT_FOLDER: 'hello-spring-boot-docker' 
+
+jobs:
+  DeployBase:
+  steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Deploy
+        run: |
+          echo ${{env.GITHUB_EVENT_NAME}}
+          docker pull ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}
+          docker images
+          echo "WIP: Deploy to development steps not implemented yet."
+          echo "New tag created in CD passed to Deploy : "${{needs.cd.outputs.new_tag}}
