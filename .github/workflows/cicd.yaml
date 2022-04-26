@@ -21,7 +21,7 @@ env:
   
 jobs:
 
-  CI:
+  ci:
     uses: ./.github/workflows/ci.yaml
     name: CI
     if: github.event_name == 'pull_request'
@@ -29,9 +29,9 @@ jobs:
       event_name: ${{github.event_name}} 
       event_ref: ${{github.event.ref}}
 
-  CD:
+  cd:
     uses: ./.github/workflows/cd.yaml
-    name: CD
+    name: Code deployment
     if: github.event_name == 'push'
     with:
       event_name: ${{github.event_name}} 
@@ -40,10 +40,10 @@ jobs:
       dh_username: ${{secrets.DOCKERHUB_USERNAME}}
       dh_token: ${{secrets.DOCKERHUB_TOKEN}}
   
-  Deploy:
+  deploy:
     uses: ./.github/workflows/deploy.yaml
     name: Deploy code to environments
-    needs: [CD]
+    needs: [cd]
     with:
       event_name: ${{github.event_name}} 
       event_ref: ${{github.event.ref}}
