@@ -45,10 +45,10 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       - run: |
-          echo "First: "${{needs.call_cd.outputs.new_tag}}
-          echo "Second: "${{needs.cd.outputs.new_tag}}
-          echo "Third: ${{needs.call_cd.outputs.new_tag}}"
-          echo "Forth: ${{needs.cd.outputs.new_tag}}"
+          echo "First: "${{needs.call_cd.outputs.tag_created}}
+          echo "Second: "${{needs.cd.outputs.tag_created}}
+          echo "Third: ${{needs.call_cd.outputs.tag_created}}"
+          echo "Forth: ${{needs.cd.outputs.tag_created}}"
 
   deploy:
     uses: ./.github/workflows/deploy.yaml
@@ -57,7 +57,7 @@ jobs:
     with:
       event_name: ${{github.event_name}} 
       event_ref: ${{github.event.ref}}
-      tag_name: ${{needs.cd.outputs.new_tag}}
+      tag_name: ${{needs.cd.outputs.tag_created}}
     secrets:
       registry_username: ${{secrets.REGISTRY_USERNAME}}
       registry_password: ${{secrets.REGISTRY_PASSWORD}}
