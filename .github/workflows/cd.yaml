@@ -19,7 +19,7 @@ env:
   ROOT_FOLDER: 'hello-spring-boot-docker' 
 
 jobs:
-  CD:
+  cd:
     name: Code Deploy
     runs-on: ubuntu-latest
     if: ${{inputs.event_name}} == 'push' && ${{inputs.event_ref}} == 'refs/heads/main'
