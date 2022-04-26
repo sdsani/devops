@@ -17,7 +17,7 @@ jobs:
   CD:
     name: CD
     runs-on: ubuntu-latest
-    if: ${{event_name}} == 'push' && ${{event_ref}} == 'refs/heads/main'
+    if: ${{inputs.event_name}} == 'push' && ${{inputs.event_ref}} == 'refs/heads/main'
     strategy:
       # Cancel all matrix jobs if one of them fails
       fail-fast: true
