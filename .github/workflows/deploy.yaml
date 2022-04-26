@@ -15,7 +15,7 @@ on:
       registry_password:
         required: false      
 env:
-  REPO_PATH: "${{ github.actor }}sdsani/"
+  REPO_PATH: "${{ github.actor }}/"
   ROOT_FOLDER: 'hello-spring-boot-docker' 
 
 jobs:
