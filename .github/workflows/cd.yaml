@@ -1,24 +1,28 @@
 name: CD Workflow
-
-# https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
-on:
-  #Only keeping it for history. Combined both CI and CD into one workflow.
-  #push:
-  #  branches:
-  #    - main
-    #https://docs.github.com/en/actions/using-workflows/triggering-a-workflow
-  workflow_dispatch:  
-  #paths:
-  #    - 'hello-spring-boot-docker/**'
-
+on: 
+  workflow_call:
+    inputs:
+      event_name:
+        required: true
+        type: string
+      event_ref:
+        required: true
+        type: string
+    secrets:
+      dh_username:
+        required: false
+      dh_token:
+        required: false
+        
 env:
-  REPO_PATH: 'sdsani/'
-  ROOT_FOLDER: 'hello-spring-boot-docker'  
+  REPO_PATH: "${{ github.actor }}/"
+  ROOT_FOLDER: 'hello-spring-boot-docker' 
 
 jobs:
-  cd:
+  CD:
     name: CD
     runs-on: ubuntu-latest
+    if: ${{inputs.event_name}} == 'push' && ${{inputs.event_ref}} == 'refs/heads/main'
     strategy:
       # Cancel all matrix jobs if one of them fails
       fail-fast: true
@@ -69,8 +73,8 @@ jobs:
       - name: Docker login
         uses: docker/login-action@v1 
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.dh_username }}
+          password: ${{ secrets.dh_token }}
           
       - name: Tag and push docker images
         run: |
@@ -84,45 +88,3 @@ jobs:
           docker push ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}:$new_tag
         env:
           new_tag: ${{steps.tag_version.outputs.new_tag}}
-
-  Deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
-    strategy:
-      # Cancel all matrix jobs if one of them fails
-      fail-fast: true
-    needs: cd
-    steps:
-      
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          
-      - name: Build changelog
-        id: build_changelog
-        uses: mikepenz/release-changelog-builder-action@main
-        with:
-          configuration: 'release-changelog-builder-config.json'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
-      - name: Create release
-        id: create_release
-        uses: actions/create-release@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: ${{steps.build_changelog.outputs.changelog}}
-          draft: false
-          prerelease: false
-      
-      - name: Deploy
-        run: |
-          echo ${{env.GITHUB_EVENT_NAME}}
-          docker pull ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}
-          docker images
-          echo "WIP: Deploy steps not implemented yet."
-          echo "New tag created in CD passed to Deploy : "${{needs.cd.outputs.new_tag}}
