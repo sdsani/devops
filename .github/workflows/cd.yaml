@@ -20,7 +20,7 @@ env:
 
 jobs:
   CD:
-    name: CD
+    name: Code Deploy
     runs-on: ubuntu-latest
     if: ${{inputs.event_name}} == 'push' && ${{inputs.event_ref}} == 'refs/heads/main'
     strategy:
