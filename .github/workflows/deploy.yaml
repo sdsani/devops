@@ -47,7 +47,7 @@ jobs:
           docker pull ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}
           docker images
           echo "WIP: Deploy to development steps not implemented yet."
-          echo "New tag created in CD passed to Deploy : "${{tag_name}}
+          echo "New tag created in CD passed to Deploy : "${{inputs.tag_name}}
 
   DeployStage:
     name: Deploy In Staging environment
@@ -73,7 +73,7 @@ jobs:
           docker pull ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}
           docker images
           echo "WIP: Deploy to development steps not implemented yet."
-          echo "New tag created in CD passed to Deploy : "${{tag_name}}
+          echo "New tag created in CD passed to Deploy : "${{inputs.tag_name}}
           
   DeployProd:
     name: Deploy In Production
@@ -107,7 +107,7 @@ jobs:
           docker pull ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}
           docker images
           echo "WIP: Deploy to Production steps not implemented yet."
-          echo "New tag created in CD passed to Deploy : "${{needs.cd.outputs.tag_name}}
+          echo "New tag created in CD passed to Deploy : "${{inputs.tag_name}}
           
       #- name: Create release
       #  id: create_release
