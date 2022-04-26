@@ -2,10 +2,10 @@ name: Deploy Base
 on: 
   workflow_call:
     inputs:
-      event_name:
+      env_name:
         required: true
         type: string
-      event_ref:
+      env_url:
         required: true
         type: string
 
@@ -15,7 +15,14 @@ env:
 
 jobs:
   DeployBase:
-  steps:
+    runs-on: ubuntu-latest
+    environment: 
+      name: ${{env_name}}
+      url: ${{env_url}}    
+    strategy:
+      # Cancel all matrix jobs if one of them fails
+      fail-fast: true
+    steps:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
