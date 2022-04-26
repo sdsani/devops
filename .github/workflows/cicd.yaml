@@ -31,7 +31,7 @@ jobs:
 
   CD:
     uses: ./.github/workflows/cd.yaml
-    name: CD
+    name: Code deployment
     if: github.event_name == 'push'
     with:
       event_name: ${{github.event_name}} 
