@@ -29,9 +29,8 @@ jobs:
       event_name: ${{github.event_name}} 
       event_ref: ${{github.event.ref}}
 
-  cd:
+  call_cd:
     uses: ./.github/workflows/cd.yaml
-    name: Code deployment
     if: github.event_name == 'push'
     with:
       event_name: ${{github.event_name}} 
@@ -42,17 +41,17 @@ jobs:
   
   test_job:
     name: Test job to verify new_tag
-    if: github.event_name == 'push'
-    needs: [cd]
+    needs: [call_cd]
     runs-on: ubuntu-latest
     steps: 
       - run: |
-          echo ${{needs.cd.outputs.new_tag}}
+          echo "First: "${{needs.call_cd.outputs.new_tag}}
+          echo "Second: "${{needs.cd.outputs.new_tag}}
 
   deploy:
     uses: ./.github/workflows/deploy.yaml
     name: Deploy code to environments
-    needs: [cd]
+    needs: [call_cd]
     with:
       event_name: ${{github.event_name}} 
       event_ref: ${{github.event.ref}}
