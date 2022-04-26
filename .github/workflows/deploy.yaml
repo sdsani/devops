@@ -24,6 +24,9 @@ jobs:
     uses: ./.github/workflows/deploy-base.yaml
     name: Deploy To Development Environment
     if: ${{inputs.event_name}} == 'push' && ${{inputs.event_ref}} == 'refs/heads/main'
+    with:
+      env_name: "Development" 
+      env_url: 'http://www.devenvurl.com'
 
   DeployStage:
     name: Deploy In Staging environment
