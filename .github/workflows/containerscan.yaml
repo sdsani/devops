@@ -24,15 +24,14 @@ jobs:
           build-root-directory: hello-spring-boot-docker
 
       - name: List Images
-        run: docker images
-
+        run: |
+          docker images
+          echo "${{env.image_path}}"
+          echo "${{env.image_path}}:latest"
+          
       - name: Image scan
         uses: azure/container-scan@v0
         with:
           image-name: sdsani/hello-spring-boot-docker:latest
           
-      - name: Step to validate some variables
-        run: |
-          echo "${{env.image_path}}"
-          echo "${{env.image_path}}:latest"
           
