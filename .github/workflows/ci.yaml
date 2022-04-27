@@ -76,3 +76,4 @@ jobs:
          echo "2 : "${{github.actor}}
          # Following is not valid
          echo "3 : "$github.actor
+         echo "Repo owner name: "$GITHUB_REPOSITORY_OWNER
