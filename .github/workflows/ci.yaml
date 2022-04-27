@@ -26,7 +26,6 @@ jobs:
       - name: Code Checkout
         uses: actions/checkout@v3
         with:
-          github_token: env
           fetch-depth: 1
       
       - name: Set up JDK
@@ -49,7 +48,6 @@ jobs:
       - name: Code Checkout
         uses: actions/checkout@v3
         with:
-          github_token: env
           fetch-depth: 0
       
       - name: Set up JDK
