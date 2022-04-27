@@ -10,6 +10,7 @@ on:
 env:
   REPO_PATH: ${{github.actor}}
   ROOT_FOLDER: 'hello-spring-boot-docker'  
+  image_path: ${{ format({0}/{1}, ${{env.REPO_PATH}}, ${{env.ROOT_FOLDER}} )}}
 
 jobs:
 
@@ -64,6 +65,11 @@ jobs:
           arguments: bootBuildImage
           build-root-directory: hello-spring-boot-docker
        
+      - name: Image Scan
+        uses: anchore/scan-action@v3
+        with:
+          image: $image_path:latest
+      
       - name: Docker login
         uses: docker/login-action@v1 
         with:
@@ -78,13 +84,15 @@ jobs:
           echo ${{ github.event.repository.name }}
           echo "XXX : "$REPO_PATH
           echo "YYY : "$ROOT_FOLDER
+          echo "Image_path: " $image_path
           docker images
-          docker tag ${{env.REPO_PATH}}/${{env.ROOT_FOLDER}}:latest ${{env.REPO_PATH}}/${{env.ROOT_FOLDER}}:$new_tag 
+          docker tag $image_path:latest $image_path:$new_tag 
           docker images
-          docker push ${{env.REPO_PATH}}/${{env.ROOT_FOLDER}}:latest
-          docker push ${{env.REPO_PATH}}/${{env.ROOT_FOLDER}}:$new_tag
+          docker push $image_path:latest
+          docker push $image_path:$new_tag
         env:
           new_tag: ${{steps.tag_version.outputs.new_tag}}
+          #image_path: ${{ format({0}/{1}, ${{env.REPO_PATH}}, ${{env.ROOT_FOLDER}} )}}
           
   deploy:
     uses: ./.github/workflows/deploy.yaml
