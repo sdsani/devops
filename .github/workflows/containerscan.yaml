@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+env:
+  ROOT_FOLDER: 'hello-spring-boot-docker'
+  image_path: $GITHUB_REPOSITORY_OWNER/$ROOT_FOLDER
+
 jobs:
   build:
     name: Build
@@ -26,3 +30,9 @@ jobs:
         uses: azure/container-scan@v0
         with:
           image-name: sdsani/hello-spring-boot-docker:latest
+          
+      - name: Step to validate some variables
+        run: |
+          echo "${{env.image_path}}"
+          echo "${{env.image_path}}:latest"
+          
