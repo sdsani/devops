@@ -2,14 +2,14 @@ name: CI + CD
 
 # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
 on:  
-  pull_request: 
-    branches: [ main ]
-    paths:
-      - 'hello-spring-boot-docker/**'  
-  push: 
-    branches: [ main ]
-    paths:
-      - 'hello-spring-boot-docker/**'      
+  #pull_request: 
+  #  branches: [ main ]
+  #  paths:
+  #    - 'hello-spring-boot-docker/**'  
+  #push: 
+  #  branches: [ main ]
+  #  paths:
+  #    - 'hello-spring-boot-docker/**'      
   workflow_dispatch:
   
 env:
