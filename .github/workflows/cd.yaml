@@ -79,10 +79,10 @@ jobs:
           echo "XXX : "$REPO_PATH
           echo "YYY : "$ROOT_FOLDER
           docker images
-          docker tag ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}:latest ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}:$new_tag 
+          docker tag ${{env.REPO_PATH}}/${{env.ROOT_FOLDER}}:latest ${{env.REPO_PATH}}/${{env.ROOT_FOLDER}}:$new_tag 
           docker images
-          docker push ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}:latest
-          docker push ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}:$new_tag
+          docker push ${{env.REPO_PATH}}/${{env.ROOT_FOLDER}}:latest
+          docker push ${{env.REPO_PATH}}/${{env.ROOT_FOLDER}}:$new_tag
         env:
           new_tag: ${{steps.tag_version.outputs.new_tag}}
           
