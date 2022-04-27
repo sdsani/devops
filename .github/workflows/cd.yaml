@@ -11,7 +11,7 @@ on:
 env:
   REPO_PATH: ${{github.actor}}
   ROOT_FOLDER: 'hello-spring-boot-docker'  
-  image_path: ${{format('{0}/{1}', '${{github.actor}}', 'hello-spring-boot-docker')}}
+  image_path: ${{format('{0}/{1}', ${{github.actor}}, 'hello-spring-boot-docker')}}
 
 jobs:
 
