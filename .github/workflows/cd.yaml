@@ -1,3 +1,4 @@
+---
 name: CD
 on:  
   push: 
@@ -10,7 +11,7 @@ on:
 env:
   REPO_PATH: ${{github.actor}}
   ROOT_FOLDER: 'hello-spring-boot-docker'  
-  image_path: ${{ format({0}/{1}, ${{env.REPO_PATH}}, ${{env.ROOT_FOLDER}} )}}
+  image_path: ${{format('{0}/{1}', '${{github.actor}}', 'hello-spring-boot-docker')}}
 
 jobs:
 
@@ -75,21 +76,21 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          
+       
+      #https://pakstech.com/blog/github-actions-workflow-commands/
       - name: Tag and push docker images
-        run: |
-          #https://pakstech.com/blog/github-actions-workflow-commands/
-          echo $GITHUB_REPOSITORY
-          echo $new_tag
-          echo ${{ github.event.repository.name }}
-          echo "XXX : "$REPO_PATH
-          echo "YYY : "$ROOT_FOLDER
-          echo "Image_path: " $image_path
+        run: | 
+          echo "$GITHUB_REPOSITORY"
+          echo "$new_tag"
+          echo "${{ github.event.repository.name }}"
+          echo "XXX : $REPO_PATH"
+          echo "YYY : $ROOT_FOLDER"
+          echo "Image_path: $image_path"
           docker images
-          docker tag $image_path:latest $image_path:$new_tag 
+          docker tag "$image_path:latest" "$image_path:$new_tag"
           docker images
-          docker push $image_path:latest
-          docker push $image_path:$new_tag
+          docker push "$image_path:latest"
+          docker push "$image_path:$new_tag"
         env:
           new_tag: ${{steps.tag_version.outputs.new_tag}}
           #image_path: ${{ format({0}/{1}, ${{env.REPO_PATH}}, ${{env.ROOT_FOLDER}} )}}
@@ -101,7 +102,7 @@ jobs:
     with:
       event_name: ${{github.event_name}} 
       event_ref: ${{github.event.ref}}
-      tag_name: ${{needs.call_cd.outputs.tag_created}}
+      tag_name: ${{needs.cd.outputs.tag_created}}
     secrets:
       registry_username: ${{secrets.REGISTRY_USERNAME}}
       registry_password: ${{secrets.REGISTRY_PASSWORD}}
