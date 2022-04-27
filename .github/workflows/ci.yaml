@@ -22,6 +22,7 @@ jobs:
         os: [ubuntu-latest]
     steps:
       - run: |
-          echo $REPO_PATH
-          echo $ROOT_FOLDER
-          echo ${{$github.actor}}
+          echo "1 : "$REPO_PATH
+          echo "2 : "$ROOT_FOLDER
+          echo "3 : "${{github.actor}}
+          echo "4 : "$github.actor
