@@ -3,10 +3,11 @@ on:
     branches: [ main ]
     paths:
       - 'hello-spring-boot-docker/**'      
+
   workflow_dispatch:
   
 env:
-  REPO_PATH: $github.actor
+  REPO_PATH: ${{github.actor}}
   ROOT_FOLDER: 'hello-spring-boot-docker'  
 
 jobs:
@@ -21,7 +22,8 @@ jobs:
         # our matrix for testing acros OSs
         os: [ubuntu-latest]
     steps:
-      - run: |
+      - name: Test echo commands
+        run: |
           echo "1 : "$REPO_PATH
           echo "2 : "$ROOT_FOLDER
           echo "3 : "${{github.actor}}
