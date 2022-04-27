@@ -1,0 +1,28 @@
+on:  
+  pull_request: 
+    branches: [ main ]
+    paths:
+      - 'hello-spring-boot-docker/**'  
+      
+  workflow_dispatch:
+  
+env:
+  REPO_PATH: $github.actor
+  ROOT_FOLDER: 'hello-spring-boot-docker'  
+
+jobs:
+  test_job:
+    name: Test job just to run any test commands
+    #if: ${{inputs.event_name}} == 'pull_request'
+    runs-on: ${{ matrix.os }}
+    strategy:
+      # Cancel all matrix jobs if one of them fails
+      fail-fast: true
+      matrix:
+        # our matrix for testing acros OSs
+        os: [ubuntu-latest]
+      steps:
+        - run: |
+          echo REPO_PATH
+          echo ROOT_FOLDER
+          echo ${{$github.actor}}
