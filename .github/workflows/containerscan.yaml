@@ -1,0 +1,37 @@
+---
+name: container Scan
+on:
+  pull_request:
+    branches:
+      - main
+
+env:
+  ROOT_FOLDER: 'hello-spring-boot-docker'
+  image_path: $GITHUB_REPOSITORY_OWNER/$ROOT_FOLDER
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build docker image
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: bootBuildImage
+          build-root-directory: hello-spring-boot-docker
+
+      - name: List Images
+        run: |
+          docker images
+          echo "${{env.image_path}}"
+          echo "${{env.image_path}}:latest"
+          
+      - name: Image scan
+        uses: azure/container-scan@v0
+        with:
+          image-name: sdsani/hello-spring-boot-docker:latest
+          
+          
