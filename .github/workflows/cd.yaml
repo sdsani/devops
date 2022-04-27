@@ -76,6 +76,9 @@ jobs:
           echo $GITHUB_REPOSITORY
           echo $new_tag
           echo ${{ github.event.repository.name }}
+          echo "XXX : "$REPO_PATH
+          echo "YYY : "$ROOT_FOLDER
+          docker images
           docker tag ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}:latest ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}:$new_tag 
           docker images
           docker push ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}:latest
