@@ -11,7 +11,7 @@ on:
 env:
   REPO_PATH: $GITHUB_REPOSITORY_OWNER
   ROOT_FOLDER: 'hello-spring-boot-docker'  
-  image_path: ${{env.REPO_PATH}}/${{env.ROOT_FOLDER}}
+  image_path: ${{REPO_PATH}}/${{ROOT_FOLDER}}
 
 jobs:
 
