@@ -9,9 +9,8 @@ on:
   workflow_dispatch:
   
 env:
-  REPO_PATH: $GITHUB_REPOSITORY_OWNER
   ROOT_FOLDER: 'hello-spring-boot-docker'  
-  image_path: ${{env.REPO_PATH}}/${{env.ROOT_FOLDER}}
+  image_path: $GITHUB_REPOSITORY_OWNER/$ROOT_FOLDER
 
 jobs:
 
@@ -83,7 +82,6 @@ jobs:
           echo "$GITHUB_REPOSITORY"
           echo "$new_tag"
           echo "${{ github.event.repository.name }}"
-          echo "XXX : $REPO_PATH"
           echo "YYY : $ROOT_FOLDER"
           echo "Image_path: $image_path"
           docker images
@@ -93,7 +91,6 @@ jobs:
           docker push "${{env.image_path}}:${{env.new_tag}}"
         env:
           new_tag: ${{steps.tag_version.outputs.new_tag}}
-          #image_path: ${{ format({0}/{1}, ${{env.REPO_PATH}}, ${{env.ROOT_FOLDER}} )}}
           
   deploy:
     uses: ./.github/workflows/deploy.yaml
