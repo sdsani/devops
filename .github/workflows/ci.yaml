@@ -21,8 +21,8 @@ jobs:
       matrix:
         # our matrix for testing acros OSs
         os: [ubuntu-latest]
-      steps:
-        - run: |
-          echo REPO_PATH
-          echo ROOT_FOLDER
+    steps:
+      - run: |
+          echo $REPO_PATH
+          echo $ROOT_FOLDER
           echo ${{$github.actor}}
