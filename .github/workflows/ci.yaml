@@ -80,7 +80,7 @@ jobs:
       - name: Image Scan
         uses: anchore/scan-action@v3
         with:
-          image: $env.image_path:latest
+          image: ${{ env.image_path }}:latest
       
   WE:
    name: Anything else that we should do before merge
