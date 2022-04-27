@@ -19,16 +19,9 @@ jobs:
           build-root-directory: hello-spring-boot-docker
 
       - name: List Images
-        run: docker image
+        run: docker images
 
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
+      - name: Image scan
+        uses: azure/container-scan@v0
         with:
-          image-ref: 'docker.io/sdsani/my-app:latest'
-          format: 'sarif'
-          output: 'trivy-results.sarif'
-
-      - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v1
-        with:
-          sarif_file: 'trivy-results.sarif'
+          image-name: sdsani/hello-spring-boot-docker:latest
