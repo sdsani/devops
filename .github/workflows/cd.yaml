@@ -87,8 +87,8 @@ jobs:
           echo "YYY : $ROOT_FOLDER"
           echo "Image_path: $image_path"
           docker images
-          #docker tag $image_path:latest $image_path:$new_tag 
-          #docker images
+          docker tag "$image_path":latest "$image_path":$new_tag 
+          docker images
           #docker push $image_path:latest
           #docker push $image_path:$new_tag
         env:
