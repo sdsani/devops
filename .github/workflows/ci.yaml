@@ -40,27 +40,6 @@ jobs:
           arguments: build
           build-root-directory: ${{env.ROOT_FOLDER}}
 
-  Linter:
-    name: Super linter
-    runs-on: ubuntu-latest
-    needs: [CodeCompile]
-    
-    steps:
-      - name: Code Checkout
-        uses: actions/checkout@v3
-        with:
-          github_token: env
-          fetch-depth: 1
-      - name: Linter
-        uses: github/super-linter@v4
-        env:
-          VALIDATE_ALL_CODEBASE: false
-          DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VALIDATE_HTML: true
-          VALIDATE_JAVASCRIPT_ES: true
-          VALIDATE_JAVASCRIPT_STANDARD: true
-
   Test:
     name: Run tests
     runs-on: ubuntu-latest
