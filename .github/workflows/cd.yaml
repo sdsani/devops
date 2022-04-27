@@ -10,7 +10,7 @@ on:
   
 env:
   ROOT_FOLDER: 'hello-spring-boot-docker'  
-  image_path: $GITHUB_REPOSITORY_OWNER/${{ROOT_FOLDER}}
+  image_path: $GITHUB_REPOSITORY_OWNER/$ROOT_FOLDER
 
 jobs:
 
