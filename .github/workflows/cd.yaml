@@ -78,22 +78,22 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
        
       #https://pakstech.com/blog/github-actions-workflow-commands/
-      - name: Tag and push docker images
-        run: | 
-          echo $GITHUB_REPOSITORY
-          echo $new_tag
-          echo ${{ github.event.repository.name }}
-          echo "XXX : "$REPO_PATH
-          echo "YYY : "$ROOT_FOLDER
-          echo "Image_path: " $image_path
-          docker images
-          docker tag $image_path:latest $image_path:$new_tag 
-          docker images
-          docker push $image_path:latest
-          docker push $image_path:$new_tag
-        env:
-          new_tag: ${{steps.tag_version.outputs.new_tag}}
-          #image_path: ${{ format({0}/{1}, ${{env.REPO_PATH}}, ${{env.ROOT_FOLDER}} )}}
+      #- name: Tag and push docker images
+      #  run: | 
+      #    echo $GITHUB_REPOSITORY
+      #    echo $new_tag
+      #    echo ${{ github.event.repository.name }}
+      #    echo "XXX : "$REPO_PATH
+      #    echo "YYY : "$ROOT_FOLDER
+      #    echo "Image_path: " $image_path
+      #    docker images
+      #    docker tag $image_path:latest $image_path:$new_tag 
+      #    docker images
+      #    docker push $image_path:latest
+      #    docker push $image_path:$new_tag
+      #  env:
+      #    new_tag: ${{steps.tag_version.outputs.new_tag}}
+      #    #image_path: ${{ format({0}/{1}, ${{env.REPO_PATH}}, ${{env.ROOT_FOLDER}} )}}
           
   deploy:
     uses: ./.github/workflows/deploy.yaml
