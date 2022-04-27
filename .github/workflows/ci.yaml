@@ -80,7 +80,7 @@ jobs:
       - name: Image Scan
         uses: anchore/scan-action@v3
         with:
-          image: ${{env.ROOT_FOLDER}}
+          image: ${{env.ROOT_FOLDER}}/${{env.GITHUB_REPOSITORY_OWNER}}:latest
       
   WE:
    name: Anything else that we should do before merge
