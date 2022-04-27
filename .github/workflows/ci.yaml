@@ -2,8 +2,7 @@ on:
   pull_request: 
     branches: [ main ]
     paths:
-      - 'hello-spring-boot-docker/**'  
-      
+      - 'hello-spring-boot-docker/**'      
   workflow_dispatch:
   
 env:
