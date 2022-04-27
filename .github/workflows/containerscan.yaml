@@ -1,9 +1,9 @@
 name: container Scan
 on:
-  pull:
+  pull_request:
     branches:
       - main
-  pull_request:
+
 jobs:
   build:
     name: Build
