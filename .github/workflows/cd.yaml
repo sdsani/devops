@@ -76,10 +76,10 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          
+       
+      #https://pakstech.com/blog/github-actions-workflow-commands/
       - name: Tag and push docker images
-        run: |
-          #https://pakstech.com/blog/github-actions-workflow-commands/
+        run: | 
           echo $GITHUB_REPOSITORY
           echo $new_tag
           echo ${{ github.event.repository.name }}
