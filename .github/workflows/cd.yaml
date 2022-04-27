@@ -89,8 +89,8 @@ jobs:
           docker images
           docker tag "$image_path:latest" "$image_path:$new_tag"
           docker images
-          #docker push $image_path:latest
-          #docker push $image_path:$new_tag
+          docker push "$image_path:latest"
+          docker push "$image_path:$new_tag"
         env:
           new_tag: ${{steps.tag_version.outputs.new_tag}}
           #image_path: ${{ format({0}/{1}, ${{env.REPO_PATH}}, ${{env.ROOT_FOLDER}} )}}
