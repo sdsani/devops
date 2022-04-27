@@ -1,10 +1,11 @@
+name: CI Workflow
+
 on:  
+  workflow_dispatch:
   pull_request: 
     branches: [ main ]
     paths:
       - 'hello-spring-boot-docker/**'      
-
-  workflow_dispatch:
   
 env:
   REPO_PATH: ${{github.actor}}
@@ -13,14 +14,7 @@ env:
 jobs:
   test_job:
     name: Test job just to run any test commands
-    #if: ${{inputs.event_name}} == 'pull_request'
-    runs-on: ${{ matrix.os }}
-    strategy:
-      # Cancel all matrix jobs if one of them fails
-      fail-fast: true
-      matrix:
-        # our matrix for testing acros OSs
-        os: [ubuntu-latest]
+    runs-on: ubuntu-latest
     steps:
       - name: Test echo commands
         run: |
