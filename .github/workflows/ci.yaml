@@ -8,8 +8,8 @@ on:
   workflow_dispatch:
   
 env:
-  REPO_PATH: ${{github.actor}}
-  ROOT_FOLDER: 'hello-spring-boot-docker'  
+  ROOT_FOLDER: 'hello-spring-boot-docker'
+  image_path: $GITHUB_REPOSITORY_OWNER/$ROOT_FOLDER
 
 jobs:
 
@@ -60,6 +60,27 @@ jobs:
         with:
           arguments: test
           build-root-directory: ${{env.ROOT_FOLDER}}
+          
+  ContainerScan:
+    name: Build and scan container imager
+    runs-on: ubuntu-latest
+    needs: [CodeCompile]
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Build docker image
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: bootBuildImage
+          build-root-directory: hello-spring-boot-docker
+       
+      - name: Image Scan
+        uses: anchore/scan-action@v3
+        with:
+          image: $env.image_path:latest
       
   WE:
    name: Anything else that we should do before merge
@@ -70,7 +91,6 @@ jobs:
    steps:
      - run: |
          echo "What else should be done before merge"
-         echo "1 : $REPO_PATH"
          echo "2 : ${{github.actor}}"
          # Following is not valid
          echo "3 : $github.actor"
