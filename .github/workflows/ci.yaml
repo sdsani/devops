@@ -72,8 +72,8 @@ jobs:
    steps:
      - run: |
          echo "What else should be done before merge"
-         echo "1 : "$REPO_PATH
-         echo "2 : "${{github.actor}}
+         echo "1 : $REPO_PATH"
+         echo "2 : ${{github.actor}}"
          # Following is not valid
-         echo "3 : "$github.actor
-         echo "Repo owner name: "$GITHUB_REPOSITORY_OWNER
+         echo "3 : $github.actor"
+         echo "Repo owner name: $GITHUB_REPOSITORY_OWNER"
