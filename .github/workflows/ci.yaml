@@ -95,3 +95,4 @@ jobs:
          # Following is not valid
          echo "3 : $github.actor"
          echo "Repo owner name: $GITHUB_REPOSITORY_OWNER"
+         echo "${{ env.image_path }}:latest"
