@@ -32,6 +32,8 @@ jobs:
       - name: Image scan
         uses: azure/container-scan@v0
         with:
-          image-name: sdsani/hello-spring-boot-docker:latest
+          image-name: $i_path
+        env:
+          i_path: ${{env.image_path}}:latest
           
           
