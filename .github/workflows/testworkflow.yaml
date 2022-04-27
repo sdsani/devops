@@ -12,7 +12,12 @@ on:
   
   #schedule:
   #  - cron: '*/30 * * * *'
-  
+
+env:
+  REPO_PATH: $GITHUB_REPOSITORY_OWNER
+  ROOT_FOLDER: 'hello-spring-boot-docker'  
+  image_path: $REPO_PATH/$ROOT_FOLDER
+
 jobs:
   onlyrunonpull:
     name: Test execution only on for pull request.
@@ -118,3 +123,4 @@ jobs:
       - run: |
           echo "${{github.event.repository.name}}"
           echo "${{ github.actor }}"
+          echo "${{env.image_path}}"
