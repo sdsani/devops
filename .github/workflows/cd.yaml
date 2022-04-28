@@ -85,7 +85,7 @@ jobs:
           docker push "${{env.image_path}}:${{env.new_tag}}"
         env:
           new_tag: ${{steps.tag_version.outputs.new_tag}}
-
+          
   deploy:
     uses: ./.github/workflows/deploy.yaml
     name: Deploy code to environments
