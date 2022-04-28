@@ -32,6 +32,6 @@ jobs:
       - name: Image scan
         uses: azure/container-scan@v0
         with:
-          image-name: ${{ env.GITHUB_REPOSITORY_OWNER }}/hello-spring-boot-docker:latest
+          image-name: $env.GITHUB_REPOSITORY_OWNER/hello-spring-boot-docker:latest
           
           
