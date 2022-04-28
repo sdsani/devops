@@ -1,0 +1,30 @@
+#1 - Following only necessary if you are using docker file for build
+docker build -t contacts-app .
+Or Run following in sb-docker-contact-service folder.
+gradlew bootBuildImage
+
+#2
+docker images | grep contact
+
+#3 - Service layer
+docker run -d --name contacts-app --rm -p 8080:8080 contacts-app
+
+#4 Run following in sb-docker-contact-ui folder.
+gradlew bootBuildImage
+
+-------------------------------------------------------------------------------------------------------
+Using docker compose.
+docker compose -f docker-compose.yaml up
+docker compose -f docker-compose.yaml down
+
+-------------------------------------------------------------------------------------------------------
+Using plan docker commands
+
+#5
+docker run -d --name sb-docker-contact-ui --rm -p 8081:8081 sdsani/sb-docker-contact-ui
+
+#6 
+docker run -d --name sb-docker-contact-ui --rm -p 8080:8080 \
+ -e CONTACTS_SERVER=http://host.docker.internal:8080/contacts \
+ sb-docker-contact-ui
+
