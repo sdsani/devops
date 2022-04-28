@@ -32,8 +32,8 @@ jobs:
       - name: Image scan
         uses: azure/container-scan@v0
         with:
-          image-name: $i_path
+          image-name: ${{ i_path }}
         env:
-          i_path: ${{env.image_path}}:latest
+          i_path: ${{ env.image_path }}:latest
           
           
