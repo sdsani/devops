@@ -30,3 +30,5 @@ jobs:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FILTER_REGEX_EXCLUDE: allowedlist.yaml
+          ACTIONS_RUNNER_DEBUG: true
+          LOG_LEVEL: DEBUG
