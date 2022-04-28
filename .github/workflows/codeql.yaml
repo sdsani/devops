@@ -17,6 +17,9 @@ on:
     branches: [ main ]
   schedule:
     - cron: '22 2 * * 0'
+    
+env: 
+  ROOT_FOLDER: 'hello-spring-boot-docker'
 
 jobs:
   analyze:
@@ -48,10 +51,20 @@ jobs:
         # Prefix the list here with "+" to use these queries and those in the config file.
         # queries: ./path/to/local/query, your-org/your-repo/queries@main
 
+    - name: Set up JDK
+      uses: actions/setup-java@v1      
+      with:        
+          java-version: "11"
+          
     # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
     # If this step fails, then you should remove it and run the build manually (see below)
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v2
+    #- name: Autobuild
+    #  uses: github/codeql-action/autobuild@v2
+    - name: Build using Gradle
+      uses: gradle/gradle-build-action@v2
+      with:
+          arguments: build
+          build-root-directory: ${{env.ROOT_FOLDER}}
 
     # ℹ️ Command-line programs to run using the OS shell.
     # 📚 See https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun
