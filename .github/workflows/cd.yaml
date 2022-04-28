@@ -77,7 +77,6 @@ jobs:
           echo "$GITHUB_REPOSITORY"
           echo "$new_tag"
           echo "${{ github.event.repository.name }}"
-          echo "YYY : $ROOT_FOLDER"
           echo "Image_path: $image_path"
           docker images
           docker tag "${{env.image_path}}:latest" "${{env.image_path}}:${{env.new_tag}}"
