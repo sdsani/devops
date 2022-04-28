@@ -1,0 +1,122 @@
+#https://docs.github.com/en/actions/using-workflows/reusing-workflows
+name: Deploy Code Contact UI
+on: 
+  workflow_call:
+    inputs:
+      event_name:
+        required: true
+        type: string
+      event_ref:
+        required: true
+        type: string
+      tag_name:
+        required: true
+        type: string
+    secrets:
+      registry_username:
+        required: false
+      registry_password:
+        required: false
+      
+env:
+  REPO_PATH: "${{ github.actor }}/"
+  ROOT_FOLDER: 'sb-docker-contact-ui' 
+
+jobs:
+
+  DeployDev:
+    name: Deploy In Development environment
+    if: ${{inputs.event_name}} == 'push' && ${{inputs.event_ref}} == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: Development
+      url: 'http://www.devenvurl.com'    
+    strategy:
+      # Cancel all matrix jobs if one of them fails
+      fail-fast: true
+    steps:
+      
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Deploy
+        run: |
+          echo ${{env.GITHUB_EVENT_NAME}}
+          docker pull ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}
+          docker images
+          echo "WIP: Deploy to development steps not implemented yet."
+          echo "New tag created in CD passed to Deploy : "${{inputs.tag_name}}
+
+  DeployStage:
+    name: Deploy In Staging environment
+    needs: [DeployDev]
+    if: ${{inputs.event_name}} == 'push' && ${{inputs.event_ref}} == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: 
+      name: Stage
+      url: 'http://www.stageenvurl.com'    
+    strategy:
+      # Cancel all matrix jobs if one of them fails
+      fail-fast: true
+    steps:
+      
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Deploy
+        run: |
+          echo ${{env.GITHUB_EVENT_NAME}}
+          docker pull ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}
+          docker images
+          echo "WIP: Deploy to development steps not implemented yet."
+          echo "New tag created in CD passed to Deploy : "${{inputs.tag_name}}
+          
+  DeployProd:
+    name: Deploy In Production
+    needs: [DeployStage]
+    if: ${{inputs.event_name}} == 'push' && ${{inputs.event_ref}} == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: 
+      name: Production
+      url: 'http://www.prodenvurl.com'    
+    strategy:
+      # Cancel all matrix jobs if one of them fails
+      fail-fast: true
+    steps:
+      
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          
+      - name: Build changelog
+        id: build_changelog
+        uses: mikepenz/release-changelog-builder-action@main
+        with:
+          configuration: 'release-changelog-builder-config.json'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Deploy
+        run: |
+          echo ${{env.GITHUB_EVENT_NAME}}
+          docker pull ${{env.REPO_PATH}}${{env.ROOT_FOLDER}}
+          docker images
+          echo "WIP: Deploy to Production steps not implemented yet."
+          echo "New tag created in CD passed to Deploy : "${{inputs.tag_name}}
+          
+      #- name: Create release
+      #  id: create_release
+      #  uses: actions/create-release@latest
+      #  env:
+      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      #  with:
+      #    tag_name: ${{ github.ref }}
+      #    release_name: Release ${{ github.ref }}
+      #    body: ${{steps.build_changelog.outputs.changelog}}
+      #    draft: false
+      #    prerelease: false
