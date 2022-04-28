@@ -1,0 +1,8 @@
+contacts:
+  username: admin
+  password: admin
+  server: http://localhost:8080/contacts
+  
+server:
+  port: '8081'
+

@@ -1,0 +1,22 @@
+https://github.com/Apress/spring-boot-fundamentals-part2
+
+Basic
+===================================
+kubectl apply -f k8s-simple-app.yaml
+kubectl apply -f k8s-service-app.yaml
+kubectl apply -f k8s-simple-ui.yaml
+kubectl apply -f k8s-service-ui.yaml
+
+kubectl delete -f k8s-service-ui.yaml
+kubectl delete -f k8s-simple-ui.yaml
+kubectl delete -f k8s-service-app.yaml
+kubectl delete -f k8s-simple-app.yaml
+
+
+All in one
+==========
+kubectl apply -f k8s-app-deployment.yaml
+kubectl apply -f k8s-app-ui-deployment.yaml
+
+kubectl delete -f k8s-app-ui-deployment.yaml
+kubectl delete -f k8s-app-deployment.yaml
