@@ -4,6 +4,8 @@ on:
   pull_request:
     branches:
       - main
+    paths:
+      - 'hello-spring-boot-docker/**' 
 
 env:
   ROOT_FOLDER: 'hello-spring-boot-docker'
