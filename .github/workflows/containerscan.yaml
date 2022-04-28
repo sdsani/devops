@@ -7,7 +7,7 @@ on:
 
 env:
   ROOT_FOLDER: 'hello-spring-boot-docker'
-  image_path: $GITHUB_REPOSITORY_OWNER/$ROOT_FOLDER
+  #image_path: $GITHUB_REPOSITORY_OWNER/$ROOT_FOLDER
 
 jobs:
   build:
@@ -18,9 +18,8 @@ jobs:
       - name: Setup path
         id: setup
         run: |
-          echo ::set-output name=i_path::${{ env.image_path }}
+          echo ::set-output name=i_path::$GITHUB_REPOSITORY_OWNER/${{env.ROOT_FOLDER}}
           echo ::set-output name=r_folder::${{ env.ROOT_FOLDER }}
-          
     
       - name: Checkout code
         uses: actions/checkout@v2
