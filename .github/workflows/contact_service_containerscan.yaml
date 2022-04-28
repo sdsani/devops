@@ -1,0 +1,45 @@
+---
+name: container Scan Contact Service
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'sb-docker-contact-service/**' 
+
+env:
+  ROOT_FOLDER: 'sb-docker-contact-service'
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      
+      - name: Setup path
+        id: setup
+        run: |
+          echo "::set-output name=i_path::$GITHUB_REPOSITORY_OWNER/${{env.ROOT_FOLDER}}"
+          echo "::set-output name=r_folder::${{ env.ROOT_FOLDER }}"
+    
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build docker image
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: bootBuildImage
+          build-root-directory: ${{steps.setup.outputs.r_folder}}
+
+      - name: List Images
+        run: |
+          docker images
+          echo "${{env.image_path}}"
+          echo "${{env.image_path}}:latest"
+          
+      - name: Image scan
+        uses: azure/container-scan@v0
+        with:
+          image-name: ${{steps.setup.outputs.i_path}}
+          
+          
