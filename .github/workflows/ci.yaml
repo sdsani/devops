@@ -8,8 +8,8 @@ on:
   workflow_dispatch:
   
 env:
-  REPO_PATH: ${{github.actor}}
-  ROOT_FOLDER: 'hello-spring-boot-docker'  
+  ROOT_FOLDER: 'hello-spring-boot-docker'
+  image_path: $GITHUB_REPOSITORY_OWNER/$ROOT_FOLDER
 
 jobs:
 
@@ -70,8 +70,8 @@ jobs:
    steps:
      - run: |
          echo "What else should be done before merge"
-         echo "1 : $REPO_PATH"
          echo "2 : ${{github.actor}}"
          # Following is not valid
          echo "3 : $github.actor"
          echo "Repo owner name: $GITHUB_REPOSITORY_OWNER"
+         echo "${{ env.image_path }}:latest"
