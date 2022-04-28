@@ -1,5 +1,5 @@
 #https://docs.github.com/en/actions/using-workflows/reusing-workflows
-name: Deploy code
+name: Code Deploy
 on: 
   workflow_call:
     inputs:
