@@ -37,9 +37,9 @@ jobs:
 
     steps:
 
-      - name: Debug
-        run: |
-          echo ${{inputs.ACTION}}
+    - name: Debug
+      run: |
+        echo ${{inputs.ACTION}}
 
     - name: Checkout
       uses: actions/checkout@v3
