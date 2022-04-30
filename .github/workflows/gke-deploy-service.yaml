@@ -6,7 +6,7 @@ on:
   #  branches:
   #    - main
 
-  inputs:
+    inputs:
       SERVICE_PATH: 
         required: true
         type: string
