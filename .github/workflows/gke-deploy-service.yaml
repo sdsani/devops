@@ -37,10 +37,6 @@ jobs:
 
     steps:
 
-    - name: debug
-      run: |
-        echo ${{inputs.MANIFEST_PATH}}
-
     - name: Checkout
       uses: actions/checkout@v3
 
@@ -62,6 +58,10 @@ jobs:
         location: ${{ env.GKE_REGION }}
         credentials: ${{ secrets.GKE_SA_KEY }}
 
+    - name: Log current state of the cluster
+      run: |
+        kubectl get all -o wide
+
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
       if: ${{inputs.ACTION}} == 'DEPLOY'
@@ -77,4 +77,8 @@ jobs:
         pwd
         ls -al
         kubectl delete -f ${{inputs.MANIFEST_PATH}}
+        kubectl get all -o wide
+
+    - name: Log current state at the end again
+      run: |
         kubectl get all -o wide

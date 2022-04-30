@@ -24,6 +24,7 @@ jobs:
       GKE_SA_KEY: ${{secrets.GKE_SA_KEY}}
 
   deploy_ui:
+    needs: [deploy_service]
     uses: ./.github/workflows/gke-deploy-service.yaml
     name: Deploy UI to GKE
     with:

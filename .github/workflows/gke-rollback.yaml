@@ -14,15 +14,16 @@ on:
 jobs:
 
   rollback_service:
+    needs: [rollback_ui]
     uses: ./.github/workflows/gke-deploy-service.yaml
     name: Rollback Service to GKE
     with:
-      SERVICE_PATH: sb-docker-contact-cloud/k8s-app-deployment.yaml
+      MANIFEST_PATH: sb-docker-contact-cloud/k8s-app-deployment.yaml
       ACTION: ROLLBACK
 
   rollback_ui:
     uses: ./.github/workflows/gke-deploy-service.yaml
     name: Rollback UI to GKE
     with:
-      SERVICE_PATH: sb-docker-contact-cloud/k8s-app-ui-deployment.yaml
+      MANIFEST_PATH: sb-docker-contact-cloud/k8s-app-ui-deployment.yaml
       ACTION: ROLLBACK
