@@ -17,10 +17,8 @@ on:
     secrets:
       GKE_SA_KEY:
         required: true
-        type: string
       GKE_PROJECT:
         required: true
-        type: string
 
 env: 
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
