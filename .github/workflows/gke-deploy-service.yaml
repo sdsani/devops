@@ -11,8 +11,8 @@ on:
         required: true
         type: string
       ROLLBACK: 
-        boolean: true
-        type: string
+        required: true
+        type: boolean
 
     secrets:
       GKE_SA_KEY:
