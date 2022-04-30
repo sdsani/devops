@@ -132,17 +132,16 @@ jobs:
           echo "${{env.image_path}}"
 
   test_gke_connect:
-
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-          fetch-depth: 0
-
     name: Test to check GKE connectivity
     runs-on: ubuntu-latest
     steps:
       - run: |
           gcloud --quiet auth configure-docker
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       # Get the GKE credentials so we can deploy to the cluster
       - uses: google-github-actions/get-gke-credentials@fb08709ba27618c31c09e014e1d8364b02e5042e
