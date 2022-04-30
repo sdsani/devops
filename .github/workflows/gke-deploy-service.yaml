@@ -10,7 +10,7 @@ on:
       MANIFEST_PATH: 
         required: true
         type: string
-      operation_type: 
+      ACTION: 
         required: true
         type: string
 
@@ -39,7 +39,7 @@ jobs:
 
     - name: Debug
       run: |
-        echo ${{inputs.operation_type}}
+        echo ${{inputs.ACTION}}
 
     - name: Checkout
       uses: actions/checkout@v3
@@ -68,7 +68,7 @@ jobs:
 
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
-      if: ${{inputs.operation_type}} == 'DEPLOY'
+      if: ${{inputs.ACTION}} == 'DEPLOY'
       run: |
         pwd
         ls -al
@@ -76,7 +76,7 @@ jobs:
         kubectl get services -o wide
 
     - name: Rollback
-      if: ${{inputs.operation_type}} == 'ROLLBACK'
+      if: ${{inputs.ACTION}} == 'ROLLBACK'
       run: |
         pwd
         ls -al
