@@ -145,4 +145,5 @@ jobs:
           credentials: ${{ secrets.GKE_SA_KEY }}
 
       - run: |
+          gcloud config set project ${{PROJECT_ID}} 
           gcloud iam service-accounts list
