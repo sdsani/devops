@@ -68,7 +68,7 @@ jobs:
       run: |
         pwd
         ls -al
-        kubectl rollout status ${{inputs.SERVICE_PATH}}
+        kubectl rollout status sb-docker-contact-cloud/${{inputs.SERVICE_PATH}}
         kubectl get services -o wide
 
     - name: Rollback
@@ -76,5 +76,5 @@ jobs:
       run: |
         pwd
         ls -al
-        kubectl delete ${{inputs.SERVICE_PATH}}
+        kubectl delete sb-docker-contact-cloud/${{inputs.SERVICE_PATH}}
         kubectl get services -o wide
