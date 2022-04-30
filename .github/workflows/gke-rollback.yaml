@@ -3,7 +3,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Deploy to GKE
+name: Rollback from GKE
 
 on:
   workflow_dispatch:
@@ -13,16 +13,16 @@ on:
 
 jobs:
 
-  deploy_service:
+  rollback_service:
     uses: ./.github/workflows/gke-deploy-service.yaml
-    name: Deploy Service to GKE
+    name: Rollback Service to GKE
     with:
       SERVICE_PATH: sb-docker-contact-cloud/k8s-app-deployment.yaml
-      ACTION: DEPLOY
+      ACTION: ROLLBACK
 
-  deploy_ui:
+  rollback_ui:
     uses: ./.github/workflows/gke-deploy-service.yaml
-    name: Deploy UI to GKE
+    name: Rollback UI to GKE
     with:
       SERVICE_PATH: sb-docker-contact-cloud/k8s-app-ui-deployment.yaml
-      ACTION: DEPLOY
+      ACTION: ROLLBACK
