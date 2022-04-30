@@ -23,7 +23,7 @@ jobs:
   setup-deploy:
     name: Setup, and Deploy
     runs-on: ubuntu-latest
-    environment: production
+    environment: Development
 
     steps:
     - name: Checkout
