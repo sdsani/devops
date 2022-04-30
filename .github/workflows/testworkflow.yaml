@@ -134,8 +134,8 @@ jobs:
   test_gke_connect:
 
     - name: Checkout
-        uses: actions/checkout@v3
-        with:
+      uses: actions/checkout@v3
+      with:
           fetch-depth: 0
 
     name: Test to check GKE connectivity
