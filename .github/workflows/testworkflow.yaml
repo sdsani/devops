@@ -134,7 +134,7 @@ jobs:
     name: Test to check GKE connectivity
     runs-on: ubuntu-latest
     steps:
-      - run: |-
+      - run: |
         gcloud --quiet auth configure-docker
 
       # Get the GKE credentials so we can deploy to the cluster
@@ -144,5 +144,5 @@ jobs:
           location: ${{ env.GKE_REGION }}
           credentials: ${{ secrets.GKE_SA_KEY }}
 
-      - run: |-
+      - run: |
         gcloud iam service-accounts list
