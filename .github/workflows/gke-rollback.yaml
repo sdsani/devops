@@ -19,7 +19,7 @@ jobs:
     name: Delete Contact Service
     with:
       MANIFEST_PATH: sb-docker-contact-cloud/k8s-app-deployment.yaml
-      ACTION: ROLLBACK
+      ROLLBACK: true
     secrets:
       GKE_PROJECT: ${{secrets.GKE_PROJECT}}
       GKE_SA_KEY: ${{secrets.GKE_SA_KEY}}
@@ -29,7 +29,7 @@ jobs:
     name: Delete Contact UI
     with:
       MANIFEST_PATH: sb-docker-contact-cloud/k8s-app-deployment.yaml
-      ACTION: ROLLBACK
+      ROLLBACK: true
     secrets:
       GKE_PROJECT: ${{secrets.GKE_PROJECT}}
       GKE_SA_KEY: ${{secrets.GKE_SA_KEY}}
