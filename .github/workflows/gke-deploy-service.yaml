@@ -1,4 +1,4 @@
-name: Deploy Service to GKE
+name: GKE
 
 on: 
   workflow_call:
