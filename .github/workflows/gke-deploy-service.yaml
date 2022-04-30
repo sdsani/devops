@@ -37,6 +37,10 @@ jobs:
 
     steps:
 
+    - name: debug
+      run: |
+        echo ${{inputs.SERVICE_PATH}}
+
     - name: Checkout
       uses: actions/checkout@v3
 
