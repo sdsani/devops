@@ -130,7 +130,14 @@ jobs:
           echo "${{github.event.repository.name}}"
           echo "${{ github.actor }}"
           echo "${{env.image_path}}"
+
   test_gke_connect:
+
+    - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
     name: Test to check GKE connectivity
     runs-on: ubuntu-latest
     steps:
@@ -145,5 +152,5 @@ jobs:
           credentials: ${{ secrets.GKE_SA_KEY }}
 
       - run: |
+          ls -al
           kubectl get all
-
