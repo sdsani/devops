@@ -31,13 +31,13 @@ spec:
           httpGet:
             port: 8080
             path: "/actuator/health/readiness"
-        resources:
-          requests:
-            memory: "732Mi"
-            cpu: "500m"
-          limits:
-            memory: "732Mi"
-            cpu: "500m"
+        #resources:
+        #  requests:
+        #    memory: "732Mi"
+        #    cpu: "500m"
+        #  limits:
+        #    memory: "732Mi"
+        #    cpu: "500m"
 ---
 apiVersion: v1
 kind: Service

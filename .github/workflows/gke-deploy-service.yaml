@@ -1,4 +1,4 @@
-name: Deploy Service to GKE
+name: GKE
 
 on: 
   workflow_call:
@@ -7,19 +7,26 @@ on:
   #    - main
 
     inputs:
-      SERVICE_PATH: 
+      MANIFEST_PATH: 
         required: true
         type: string
       ACTION: 
         required: true
         type: string
 
-PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-GKE_CLUSTER: autopilot-cluster-1    # Add your cluster name here.
-GKE_ZONE: us-central1-c   # Add your cluster zone here.
-GKE_REGION: us-central1
-DEPLOYMENT_NAME: gke-test # Add your deployment name here.
-IMAGE: static-site
+    secrets:
+      GKE_SA_KEY:
+        required: true
+      GKE_PROJECT:
+        required: true
+
+env: 
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  GKE_CLUSTER: autopilot-cluster-1    # Add your cluster name here.
+  GKE_ZONE: us-central1-c   # Add your cluster zone here.
+  GKE_REGION: us-central1
+  DEPLOYMENT_NAME: gke-test # Add your deployment name here.
+  IMAGE: static-site
 
 jobs:
   
@@ -29,6 +36,10 @@ jobs:
     environment: Development
 
     steps:
+
+    - name: Debug
+      run: |
+        echo ${{inputs.ACTION}}
 
     - name: Checkout
       uses: actions/checkout@v3
@@ -51,17 +62,27 @@ jobs:
         location: ${{ env.GKE_REGION }}
         credentials: ${{ secrets.GKE_SA_KEY }}
 
+    - name: Log current state of the cluster
+      run: |
+        kubectl get all -o wide
+
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
       if: ${{inputs.ACTION}} == 'DEPLOY'
       run: |
+        pwd
         ls -al
-        kubectl rollout status ${{inputs.SERVICE_PATH}}
+        kubectl apply -f ${{inputs.MANIFEST_PATH}}
         kubectl get services -o wide
 
     - name: Rollback
       if: ${{inputs.ACTION}} == 'ROLLBACK'
       run: |
+        pwd
         ls -al
-        kubectl delete ${{inputs.SERVICE_PATH}}
-        kubectl get services -o wide
+        kubectl delete -f ${{inputs.MANIFEST_PATH}}
+        kubectl get all -o wide
+
+    - name: Log current state at the end again
+      run: |
+        kubectl get all -o wide

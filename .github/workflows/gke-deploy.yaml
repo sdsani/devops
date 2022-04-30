@@ -15,14 +15,21 @@ jobs:
 
   deploy_service:
     uses: ./.github/workflows/gke-deploy-service.yaml
-    name: Deploy Service to GKE
+    name: Deploy Contact Service
     with:
-      SERVICE_PATH: sb-docker-contact-cloud/k8s-app-deployment.yaml
+      MANIFEST_PATH: sb-docker-contact-cloud/k8s-app-deployment.yaml
       ACTION: DEPLOY
+    secrets:
+      GKE_PROJECT: ${{secrets.GKE_PROJECT}}
+      GKE_SA_KEY: ${{secrets.GKE_SA_KEY}}
 
   deploy_ui:
+    needs: [deploy_service]
     uses: ./.github/workflows/gke-deploy-service.yaml
-    name: Deploy UI to GKE
+    name: Deploy Contact UI
     with:
-      SERVICE_PATH: sb-docker-contact-cloud/k8s-app-ui-deployment.yaml
+      MANIFEST_PATH: sb-docker-contact-cloud/k8s-app-ui-deployment.yaml
       ACTION: DEPLOY
+    secrets:
+      GKE_PROJECT: ${{secrets.GKE_PROJECT}}
+      GKE_SA_KEY: ${{secrets.GKE_SA_KEY}}
