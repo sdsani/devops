@@ -34,7 +34,7 @@ jobs:
     - name: Debug
       run: |
         echo ${{secrets.GKE_SA_KEY}}
-        ehco ${{secrets.GKE_PROJECT}}
+        echo ${{secrets.GKE_PROJECT}}
 
     - name: Checkout
       uses: actions/checkout@v3
