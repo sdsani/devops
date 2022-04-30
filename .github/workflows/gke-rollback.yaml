@@ -19,11 +19,17 @@ jobs:
     name: Rollback Service to GKE
     with:
       MANIFEST_PATH: sb-docker-contact-cloud/k8s-app-deployment.yaml
-      ACTION: ROLLBACK
+      ACTION: DEPLOY
+    secrets:
+      GKE_PROJECT: ${{secrets.GKE_PROJECT}}
+      GKE_SA_KEY: ${{secrets.GKE_SA_KEY}}
 
   rollback_ui:
     uses: ./.github/workflows/gke-deploy-service.yaml
     name: Rollback UI to GKE
     with:
-      MANIFEST_PATH: sb-docker-contact-cloud/k8s-app-ui-deployment.yaml
-      ACTION: ROLLBACK
+      MANIFEST_PATH: sb-docker-contact-cloud/k8s-app-deployment.yaml
+      ACTION: DEPLOY
+    secrets:
+      GKE_PROJECT: ${{secrets.GKE_PROJECT}}
+      GKE_SA_KEY: ${{secrets.GKE_SA_KEY}}
