@@ -7,9 +7,9 @@ name: Deploy to GKE
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
+  #push:
+  #  branches:
+  #    - main
 
 jobs:
 
@@ -18,7 +18,7 @@ jobs:
     name: Deploy Contact Service
     with:
       MANIFEST_PATH: sb-docker-contact-cloud/k8s-app-deployment.yaml
-      ACTION: DEPLOY
+      ROLLBACK: false
     secrets:
       GKE_PROJECT: ${{secrets.GKE_PROJECT}}
       GKE_SA_KEY: ${{secrets.GKE_SA_KEY}}
@@ -29,7 +29,7 @@ jobs:
     name: Deploy Contact UI
     with:
       MANIFEST_PATH: sb-docker-contact-cloud/k8s-app-ui-deployment.yaml
-      ACTION: DEPLOY
+      ROLLBACK: false
     secrets:
       GKE_PROJECT: ${{secrets.GKE_PROJECT}}
       GKE_SA_KEY: ${{secrets.GKE_SA_KEY}}
