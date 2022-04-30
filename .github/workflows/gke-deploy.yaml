@@ -17,7 +17,7 @@ jobs:
     uses: ./.github/workflows/gke-deploy-service.yaml
     name: Deploy Service to GKE
     with:
-      SERVICE_PATH: k8s-app-deployment.yaml
+      MANIFEST_PATH: sb-docker-contact-cloud/k8s-app-deployment.yaml
       ACTION: DEPLOY
     secrets:
       GKE_PROJECT: ${{secrets.GKE_PROJECT}}
@@ -27,7 +27,7 @@ jobs:
     uses: ./.github/workflows/gke-deploy-service.yaml
     name: Deploy UI to GKE
     with:
-      SERVICE_PATH: k8s-app-ui-deployment.yaml
+      MANIFEST_PATH: sb-docker-contact-cloud/k8s-app-ui-deployment.yaml
       ACTION: DEPLOY
     secrets:
       GKE_PROJECT: ${{secrets.GKE_PROJECT}}

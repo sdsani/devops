@@ -7,7 +7,7 @@ on:
   #    - main
 
     inputs:
-      SERVICE_PATH: 
+      MANIFEST_PATH: 
         required: true
         type: string
       ACTION: 
@@ -39,7 +39,7 @@ jobs:
 
     - name: debug
       run: |
-        echo ${{inputs.SERVICE_PATH}}
+        echo ${{inputs.MANIFEST_PATH}}
 
     - name: Checkout
       uses: actions/checkout@v3
@@ -68,7 +68,7 @@ jobs:
       run: |
         pwd
         ls -al
-        kubectl rollout status sb-docker-contact-cloud/${{inputs.SERVICE_PATH}}
+        kubectl apply -f ${{inputs.MANIFEST_PATH}}
         kubectl get services -o wide
 
     - name: Rollback
@@ -76,5 +76,5 @@ jobs:
       run: |
         pwd
         ls -al
-        kubectl delete sb-docker-contact-cloud/${{inputs.SERVICE_PATH}}
-        kubectl get services -o wide
+        kubectl delete -f ${{inputs.MANIFEST_PATH}}
+        kubectl get all -o wide
