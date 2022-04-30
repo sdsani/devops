@@ -76,7 +76,7 @@ jobs:
         kubectl get services -o wide
 
     - name: Rollback
-    if: ${{inputs.operation_type}} == 'ROLLBACK'
+      if: ${{inputs.operation_type}} == 'ROLLBACK'
       run: |
         pwd
         ls -al
