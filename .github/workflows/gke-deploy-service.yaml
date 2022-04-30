@@ -14,6 +14,14 @@ on:
         required: true
         type: string
 
+    secrets:
+      GKE_SA_KEY:
+        required: true
+        type: string
+      GKE_PROJECT:
+        required: true
+        type: string
+
 env: 
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: autopilot-cluster-1    # Add your cluster name here.

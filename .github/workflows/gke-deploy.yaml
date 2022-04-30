@@ -19,6 +19,9 @@ jobs:
     with:
       SERVICE_PATH: sb-docker-contact-cloud/k8s-app-deployment.yaml
       ACTION: DEPLOY
+    secrets:
+      GKE_PROJECT: ${{secrets.GKE_PROJECT}}
+      GKE_SA_KEY: ${{secrets.GKE_SA_KEY}}
 
   deploy_ui:
     uses: ./.github/workflows/gke-deploy-service.yaml
@@ -26,3 +29,6 @@ jobs:
     with:
       SERVICE_PATH: sb-docker-contact-cloud/k8s-app-ui-deployment.yaml
       ACTION: DEPLOY
+    secrets:
+      GKE_PROJECT: ${{secrets.GKE_PROJECT}}
+      GKE_SA_KEY: ${{secrets.GKE_SA_KEY}}
