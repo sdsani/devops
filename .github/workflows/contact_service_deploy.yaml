@@ -49,8 +49,8 @@ jobs:
           echo "WIP: Deploy to development steps not implemented yet."
           echo "New tag created in CD passed to Deploy : "${{inputs.tag_name}}
 
-  DeployStage:
-    name: Deploy In Staging environment
+  DeployGKE:
+    name: Deploy In GKE Cluster
     needs: [DeployDev]
     if: ${{inputs.event_name}} == 'push' && ${{inputs.event_ref}} == 'refs/heads/main'
     runs-on: ubuntu-latest
@@ -75,9 +75,9 @@ jobs:
           echo "WIP: Deploy to development steps not implemented yet."
           echo "New tag created in CD passed to Deploy : "${{inputs.tag_name}}
           
-  DeployProd:
-    name: Deploy In Production
-    needs: [DeployStage]
+  DeleteFromGKE:
+    name: Delete from GKE Cluster
+    needs: [DeployGKE]
     if: ${{inputs.event_name}} == 'push' && ${{inputs.event_ref}} == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: 
