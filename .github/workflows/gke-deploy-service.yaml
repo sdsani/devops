@@ -37,11 +37,6 @@ jobs:
 
     steps:
 
-    - name: Debug
-      run: |
-        echo ${{secrets.GKE_SA_KEY}}
-        echo ${{secrets.GKE_PROJECT}}
-
     - name: Checkout
       uses: actions/checkout@v3
 
@@ -67,6 +62,7 @@ jobs:
     - name: Deploy
       if: ${{inputs.ACTION}} == 'DEPLOY'
       run: |
+        pwd
         ls -al
         kubectl rollout status ${{inputs.SERVICE_PATH}}
         kubectl get services -o wide
@@ -74,6 +70,7 @@ jobs:
     - name: Rollback
       if: ${{inputs.ACTION}} == 'ROLLBACK'
       run: |
+        pwd
         ls -al
         kubectl delete ${{inputs.SERVICE_PATH}}
         kubectl get services -o wide
