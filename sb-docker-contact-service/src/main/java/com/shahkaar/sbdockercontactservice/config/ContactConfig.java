@@ -20,9 +20,9 @@ public class ContactConfig {
         return args -> {
             contactRepository.save(new Contact("admin","Administrator","1-800-CONTACTS","admin","ADMIN,ACTUATOR",true));
             
-            contactRepository.save(new Contact("sam@email.com","Sam","1-800-CONTACTS","sam","USER,ACTUATOR",true));
-            contactRepository.save(new Contact("dan@email.com","Dan","1-800-CONTACTS","dan","USER,ACTUATOR",true));
-            contactRepository.save(new Contact("ron@email.com","Ron","1-800-CONTACTS","admin","VIEWER,ACTUATOR",true));
+            contactRepository.save(new Contact("rr@email.com","Road Runner","1-800-CONTACTS","rr","USER,ACTUATOR",true));
+            contactRepository.save(new Contact("scooby@email.com","Scooby Doo","1-800-CONTACTS","scooby","USER,ACTUATOR",true));
+            contactRepository.save(new Contact("bbunny@email.com","Bugs Bunny","1-800-CONTACTS","bbunny","VIEWER,ACTUATOR",true));
         };
     }
 }
