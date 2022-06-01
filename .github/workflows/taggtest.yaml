@@ -5,12 +5,12 @@ on:
       - 'development'
       - '*release*'
     paths:
-      - 'hello-spring-boot-docker/**'      
+      - 'sb-docker-contact-service/**'      
 
   workflow_dispatch:
   
 env:
-  ROOT_FOLDER: 'hello-spring-boot-docker'  
+  ROOT_FOLDER: 'sb-docker-contact-service'  
   image_path: $GITHUB_REPOSITORY_OWNER/$ROOT_FOLDER
 
 jobs:
