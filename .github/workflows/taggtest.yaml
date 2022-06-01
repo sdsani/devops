@@ -36,6 +36,7 @@ jobs:
            tag_prefix: ""
            release_branches: release.*,hotfix.*
            dry_run: true
+           default_prerelease_bump: false
            #custom_release_rules: | 
            #  bug:patch:Bug Fixes,
            #  chore:patch:Chores,            
