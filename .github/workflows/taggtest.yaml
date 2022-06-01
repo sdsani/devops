@@ -36,20 +36,20 @@ jobs:
            tag_prefix: ""
            release_branches: release.*, hotfix.*
            dry_run: true
-           custom_release_rules: | 
-             bug:patch:Bug Fixes,
-             chore:patch:Chores,            
-             perf:patch:Performance Improvement,
-             ci:patch:Continuous Integration,
-             docs:patch:Documentation Improvement,
-             style:patch:Code Style,
-             refactor:patch:Refactoring/TODO's,
-             test:patch:Tests,
-             feat:minor:New Functionality,
-             feature:minor:New Functionality,
-             minor_upd:minor:Minor Update,
-             major_upd:major:Major Update,
-             major:major:Major Update
+           #custom_release_rules: | 
+           #  bug:patch:Bug Fixes,
+           #  chore:patch:Chores,            
+           #  perf:patch:Performance Improvement,
+           #  ci:patch:Continuous Integration,
+           #  docs:patch:Documentation Improvement,
+           #  style:patch:Code Style,
+           #  refactor:patch:Refactoring/TODO's,
+           #  test:patch:Tests,
+           #  feat:minor:New Functionality,
+           #  feature:minor:New Functionality,
+           #  minor_upd:minor:Minor Update,
+           #  major_upd:major:Major Update,
+           #  major:major:Major Update
        - name: Display tag
          run: |
             echo ${{ steps.tag_version.outputs.new_tag }}
