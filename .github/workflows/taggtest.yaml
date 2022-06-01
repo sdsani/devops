@@ -32,7 +32,6 @@ jobs:
          with:
            github_token: ${{ secrets.GITHUB_TOKEN }}
            tag_prefix: ""
-           release_branches: '*release*'
            custom_release_rules: | 
              bug:patch:Bug Fixes,
              chore:patch:Chores,            
@@ -47,4 +46,6 @@ jobs:
              minor_upd:minor:Minor Update,
              major_upd:major:Major Update,
              major:major:Major Update
-  
+       - name: Display tag
+         run: |
+            echo ${{ steps.tag_version.outputs.new_tag }}
