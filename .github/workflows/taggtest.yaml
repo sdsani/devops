@@ -1,0 +1,48 @@
+name: tagtest
+on:  
+  push: 
+    branches: [ development, *release* ]
+    paths:
+      - 'hello-spring-boot-docker/**'      
+
+  workflow_dispatch:
+  
+env:
+  ROOT_FOLDER: 'hello-spring-boot-docker'  
+  image_path: $GITHUB_REPOSITORY_OWNER/$ROOT_FOLDER
+
+jobs:
+  tag:
+     name: Tag testing
+     runs-on: ubuntu-latest
+     outputs:
+      tag_created: ${{ steps.tag_version.outputs.new_tag }}
+      
+     steps:
+       - name: Code Checout                             
+        uses: actions/checkout@v3
+        with:
+            fetch-depth: 0
+            
+       - name: Symantic tagging/verioning
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tag_prefix: ""
+          release_branches: *release*
+          custom_release_rules: | 
+            bug:patch:Bug Fixes,
+            chore:patch:Chores,            
+            perf:patch:Performance Improvement,
+            ci:patch:Continuous Integration,
+            docs:patch:Documentation Improvement,
+            style:patch:Code Style,
+            refactor:patch:Refactoring/TODO's,
+            test:patch:Tests,
+            feat:minor:New Functionality,
+            feature:minor:New Functionality,
+            minor_upd:minor:Minor Update,
+            major_upd:major:Major Update,
+            major:major:Major Update
+  
