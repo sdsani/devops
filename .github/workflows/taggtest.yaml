@@ -1,7 +1,9 @@
 name: tagtest
 on:  
   push: 
-    branches: [ development, *release* ]
+    branches: 
+      - 'development'
+      - '*release*'
     paths:
       - 'hello-spring-boot-docker/**'      
 
