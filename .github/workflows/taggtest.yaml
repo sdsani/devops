@@ -3,9 +3,9 @@ on:
   push: 
     branches: 
       - 'development'
-      - 'release.*'
-      - 'exp.*'
-      - 'hot.*'
+      - 'release*'
+      - 'exp*'
+      - 'hot*'
     paths:
       - 'sb-docker-contact-service/**'      
 
