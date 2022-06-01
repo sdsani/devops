@@ -3,7 +3,9 @@ on:
   push: 
     branches: 
       - 'development'
-      - '*release*'
+      - 'release.*'
+      - 'exp.*'
+      - 'hot.*'
     paths:
       - 'sb-docker-contact-service/**'      
 
@@ -32,7 +34,7 @@ jobs:
          with:
            github_token: ${{ secrets.GITHUB_TOKEN }}
            tag_prefix: ""
-           release_branches: main, release.*, hotfix.*
+           release_branches: release.*, hotfix.*
            custom_release_rules: | 
              bug:patch:Bug Fixes,
              chore:patch:Chores,            
