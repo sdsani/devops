@@ -35,7 +35,7 @@ jobs:
            github_token: ${{ secrets.GITHUB_TOKEN }}
            tag_prefix: ""
            release_branches: release.*,hotfix.*
-           #dry_run: true
+           dry_run: true
            #default_prerelease_bump: false
            #custom_release_rules: | 
            #  bug:patch:Bug Fixes,
@@ -59,3 +59,18 @@ jobs:
             echo ${{ steps.tag_version.outputs.previous_version }}
             echo ${{ steps.tag_version.outputs.release_type }}
             echo ${{ steps.tag_version.outputs.changelog }}
+            
+       - name: Tag test using anothrNick/github-tag-action
+         id: tag_an
+         uses: anothrNick/github-tag-action@latest
+         env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+           WITH_V: true
+           dry_run: true
+           DEFAULT_BUMP: patch
+           
+       - name: Display tag
+         run: |
+             echo "${{ steps.tag_an.outputs.new_tag }}" 
+             echo "${{ steps.tag_an.outputs.tag }}"
+             echo "${{ steps.tag_an.outputs.part }}"
