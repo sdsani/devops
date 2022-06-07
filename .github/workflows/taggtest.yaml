@@ -27,7 +27,22 @@ jobs:
          uses: actions/checkout@v3
          with:
             fetch-depth: 0
-            
+       - name: Tag test using anothrNick/github-tag-action
+         id: tag_an
+         #uses: anothrNick/github-tag-action@1.36.0
+         uses: anothrNick/github-tag-action@3840ec22ac98e14d981375e3ae2d8d0392964521
+         env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+           WITH_V: true
+           dry_run: true
+           DEFAULT_BUMP: patch
+           
+       - name: Display tag
+         run: |
+             echo ${{ steps.tag_an.outputs.new_tag }}
+             echo ${{ steps.tag_an.outputs.tag }}
+             echo ${{ steps.tag_an.outputs.part }}
+             
        - name: Symantic tagging/verioning
          id: tag_version
          uses: mathieudutour/github-tag-action@v6.0
@@ -59,19 +74,4 @@ jobs:
             echo ${{ steps.tag_version.outputs.previous_version }}
             echo ${{ steps.tag_version.outputs.release_type }}
             echo ${{ steps.tag_version.outputs.changelog }}
-            
-       - name: Tag test using anothrNick/github-tag-action
-         id: tag_an
-         #uses: anothrNick/github-tag-action@1.36.0
-         uses: anothrNick/github-tag-action@3840ec22ac98e14d981375e3ae2d8d0392964521
-         env:
-           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-           WITH_V: true
-           dry_run: true
-           DEFAULT_BUMP: patch
-           
-       - name: Display tag
-         run: |
-             echo "${{ steps.tag_an.outputs.new_tag }}" 
-             echo "${{ steps.tag_an.outputs.tag }}"
-             echo "${{ steps.tag_an.outputs.part }}"
+       
